@@ -28,15 +28,15 @@ import org.camunda.bpm.engine.BadUserRequestException;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.ProcessEngineException;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.test.AbstractProcessEngineTestCase;
-import org.camunda.bpm.engine.impl.variable.EntityManagerSession;
-import org.camunda.bpm.engine.impl.variable.EntityManagerSessionFactory;
-import org.camunda.bpm.engine.impl.variable.JPAEntityVariableType;
+import org.camunda.bpm.engine.impl.variable.deprecated.EntityManagerSession;
+import org.camunda.bpm.engine.impl.variable.deprecated.EntityManagerSessionFactory;
+import org.camunda.bpm.engine.impl.variable.deprecated.JPAEntityVariableType;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.variable.VariableType;
 import org.junit.Assert;
 
 
@@ -470,10 +470,10 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
 
     runtimeService.setVariable(instance.getId(), "entity", entityToQuery);
 
-    SerializedVariableValue variableValue = runtimeService.createVariableInstanceQuery().singleResult().getSerializedValue();
+    SerializedObjectVariableValue variableValue = runtimeService.createVariableInstanceQuery().singleResult().getSerializedValue();
 
     assertNotNull(variableValue);
-    assertNull(variableValue.getValue());
+    assertNull(variableValue.getTypedValue());
     assertEquals(2, variableValue.getConfig().size());
 
     assertEquals(entityToQuery.getClass().getCanonicalName(), variableValue.getConfig().get(JPAEntityVariableType.CONFIG_CLASS_NAME));
@@ -490,7 +490,7 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
     configuration.put(JPAEntityVariableType.CONFIG_CLASS_NAME, entityToQuery.getClass().getCanonicalName());
     configuration.put(JPAEntityVariableType.CONFIG_ENTITY_ID_STRING, entityToQuery.getId().toString());
     runtimeService.setVariableFromSerialized(instance.getId(), "entity", null,
-        ProcessEngineVariableType.JPA.getName(), configuration);
+        VariableType.JPA.getName(), configuration);
 
     FieldAccessJPAEntity returnedEntity = (FieldAccessJPAEntity) runtimeService.getVariable(instance.getId(), "entity");
     assertNotNull(returnedEntity);
@@ -505,7 +505,7 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
 
     try {
       runtimeService.setVariableFromSerialized(instance.getId(), "entity", null,
-          ProcessEngineVariableType.JPA.getName(), null);
+          VariableType.JPA.getName(), null);
       fail();
     } catch (BadUserRequestException e) {
       // expected
@@ -513,7 +513,7 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
 
     try {
       runtimeService.setVariableFromSerialized(instance.getId(), "entity", null,
-          ProcessEngineVariableType.JPA.getName(), new HashMap<String, Object>());
+          VariableType.JPA.getName(), new HashMap<String, Object>());
       fail();
     } catch (BadUserRequestException e) {
       // expected
@@ -532,7 +532,7 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
 
     try {
       runtimeService.setVariableFromSerialized(instance.getId(), "entity", "a non-sensical value",
-          ProcessEngineVariableType.JPA.getName(), configuration);
+          VariableType.JPA.getName(), configuration);
       fail();
     } catch (BadUserRequestException e) {
       // expected
@@ -551,7 +551,7 @@ public class JPAVariableTest extends AbstractProcessEngineTestCase {
 
     try {
       runtimeService.setVariableFromSerialized(instance.getId(), "entity", null,
-          ProcessEngineVariableType.JPA.getName(), configuration);
+          VariableType.JPA.getName(), configuration);
       fail();
     } catch (BadUserRequestException e) {
       // expected

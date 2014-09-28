@@ -16,7 +16,7 @@ import org.camunda.bpm.engine.ClassLoadingException;
 import org.camunda.bpm.engine.impl.javax.el.FunctionMapper;
 import org.camunda.bpm.engine.impl.scripting.env.ScriptEnvResolver;
 import org.camunda.bpm.engine.impl.util.ReflectUtil;
-import org.camunda.bpm.engine.impl.variable.SerializationVariableTypeResolver;
+import org.camunda.bpm.engine.impl.variable.serializer.SerializationVariableTypeResolver;
 
 /**
  * <p>Entry point for the process engine spin support.</p>

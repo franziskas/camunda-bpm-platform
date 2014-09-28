@@ -15,13 +15,13 @@ package org.camunda.bpm.engine.impl.persistence.entity;
 
 import java.util.Date;
 
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
 import org.camunda.bpm.engine.history.HistoricVariableUpdate;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.db.entitymanager.DbEntityManager;
 import org.camunda.bpm.engine.impl.history.event.HistoricVariableUpdateEventEntity;
-import org.camunda.bpm.engine.impl.variable.ValueFields;
-import org.camunda.bpm.engine.impl.variable.VariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueFields;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.variable.value.VariableValue;
 
 
 /**
@@ -31,17 +31,26 @@ public class HistoricDetailVariableInstanceUpdateEntity extends HistoricVariable
 
   private static final long serialVersionUID = 1L;
 
-  protected VariableType variableType;
+  protected ValueSerializer valueSerializer;
   protected ByteArrayEntity byteArrayValue;
 
-  protected Object cachedValue;
+  protected VariableValue cachedValue;
 
   protected String errorMessage;
 
   public Object getValue() {
-    if (errorMessage == null && (!variableType.isCachable() || cachedValue==null)) {
+    VariableValue variableValue = getVariableValue();
+    if(variableValue != null) {
+      return variableValue.getValue();
+    } else {
+      return null;
+    }
+  }
+
+  public VariableValue getVariableValue() {
+    if (errorMessage == null && (!valueSerializer.isCachable() || cachedValue==null)) {
       try {
-        cachedValue = variableType.getValue(this);
+        cachedValue = valueSerializer.getValue(this);
 
       } catch(RuntimeException e) {
         // catch error message
@@ -75,11 +84,11 @@ public class HistoricDetailVariableInstanceUpdateEntity extends HistoricVariable
   }
 
   public String getVariableTypeName() {
-    return (variableType!=null ? variableType.getTypeName() : null);
+    return (valueSerializer!=null ? valueSerializer.getSerializerName() : null);
   }
 
   public String getValueTypeName() {
-    return (variableType != null ? variableType.getTypeNameForValue(this) : null);
+    return (valueSerializer != null ? valueSerializer.getSerializerName() : null);
   }
 
   public String getErrorMessage() {
@@ -155,28 +164,20 @@ public class HistoricDetailVariableInstanceUpdateEntity extends HistoricVariable
     return timestamp;
   }
 
-  public VariableType getVariableType() {
-    return variableType;
+  public ValueSerializer getVariableType() {
+    return valueSerializer;
   }
 
-  public Object getCachedValue() {
+  public VariableValue getCachedValue() {
     return cachedValue;
   }
 
-  public void setCachedValue(Object cachedValue) {
+  public void setCachedValue(VariableValue cachedValue) {
     this.cachedValue = cachedValue;
   }
 
-  public void setVariableType(VariableType variableType) {
-    this.variableType = variableType;
-  }
-
-  public SerializedVariableValue getSerializedValue() {
-    return variableType.getSerializedValue(this);
-  }
-
-  public boolean storesCustomObjects() {
-    return variableType.storesCustomObjects();
+  public void setVariableType(ValueSerializer valueSerializer) {
+    this.valueSerializer = valueSerializer;
   }
 
   @Override

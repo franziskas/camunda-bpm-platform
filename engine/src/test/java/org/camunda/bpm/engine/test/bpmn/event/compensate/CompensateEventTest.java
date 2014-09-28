@@ -218,7 +218,7 @@ public class CompensateEventTest extends PluggableProcessEngineTestCase {
     if(!processEngineConfiguration.getHistory().equals(ProcessEngineConfiguration.HISTORY_NONE)) {
       assertEquals(1, historicVariableInstanceQuery.count());
       assertEquals("undoBookHotel", historicVariableInstanceQuery.list().get(0).getVariableName());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
 
       assertEquals(0, historyService.createHistoricVariableInstanceQuery()
        .processInstanceId(processInstance.getId())
@@ -239,7 +239,7 @@ public class CompensateEventTest extends PluggableProcessEngineTestCase {
     if(!processEngineConfiguration.getHistory().equals(ProcessEngineConfiguration.HISTORY_NONE)) {
       assertEquals(1, historicVariableInstanceQuery.count());
       assertEquals("undoBookHotel", historicVariableInstanceQuery.list().get(0).getVariableName());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
 
       assertEquals(0, historyService.createHistoricVariableInstanceQuery()
         .processInstanceId(processInstance.getId())
@@ -296,7 +296,7 @@ public class CompensateEventTest extends PluggableProcessEngineTestCase {
     if(!processEngineConfiguration.getHistory().equals(ProcessEngineConfiguration.HISTORY_NONE)) {
       assertEquals(1, historicVariableInstanceQuery.count());
       assertEquals("undoBookSecondHotel", historicVariableInstanceQuery.list().get(0).getVariableName());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
 
       assertEquals(0, historyService.createHistoricVariableInstanceQuery()
         .processInstanceId(processInstance.getId())
@@ -321,19 +321,19 @@ public class CompensateEventTest extends PluggableProcessEngineTestCase {
     if(!processEngineConfiguration.getHistory().equals(ProcessEngineConfiguration.HISTORY_NONE)) {
       assertEquals(1, historicVariableInstanceQuery.count());
       assertEquals("undoBookSecondHotel", historicVariableInstanceQuery.list().get(0).getVariableName());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
 
       historicVariableInstanceQuery = historyService.createHistoricVariableInstanceQuery()
           .variableName("undoBookFlight");
 
       assertEquals(1, historicVariableInstanceQuery.count());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
 
       historicVariableInstanceQuery = historyService.createHistoricVariableInstanceQuery()
           .variableName("undoBookHotel");
 
       assertEquals(1, historicVariableInstanceQuery.count());
-      assertEquals(5, historicVariableInstanceQuery.list().get(0).getValue());
+      assertEquals(5, historicVariableInstanceQuery.list().get(0).getTypedValue());
     }
   }
 

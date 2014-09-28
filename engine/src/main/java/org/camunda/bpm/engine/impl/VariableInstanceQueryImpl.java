@@ -18,12 +18,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
+
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.camunda.bpm.engine.runtime.VariableInstance;
 import org.camunda.bpm.engine.runtime.VariableInstanceQuery;
+import org.camunda.bpm.engine.variable.VariableType;
 
 /**
  * @author roman.smirnov
@@ -156,7 +157,7 @@ public class VariableInstanceQueryImpl extends AbstractVariableQueryImpl<Variabl
           variableInstanceEntity.getSerializedValue();
 
           if (shouldFetchValueFor(variableInstanceEntity)) {
-            variableInstanceEntity.getValue();
+            variableInstanceEntity.getTypedValue();
           }
 
         } catch(Exception t) {
@@ -184,7 +185,7 @@ public class VariableInstanceQueryImpl extends AbstractVariableQueryImpl<Variabl
    * binary fetching disabled
    */
   protected boolean shouldFetchSerializedValueFor(VariableInstanceEntity variableInstance) {
-    boolean shouldFetchBytes = !ProcessEngineVariableType.BYTES.getName().equals(variableInstance.getType().getTypeName())
+    boolean shouldFetchBytes = !VariableType.BYTES.getName().equals(variableInstance.getSerializer().getSerializerName())
         || isByteArrayFetchingEnabled;
 
     return shouldFetchBytes;

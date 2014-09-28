@@ -106,10 +106,10 @@ public class CaseServiceProcessTaskTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -166,10 +166,10 @@ public class CaseServiceProcessTaskTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -222,10 +222,10 @@ public class CaseServiceProcessTaskTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -283,10 +283,10 @@ public class CaseServiceProcessTaskTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }

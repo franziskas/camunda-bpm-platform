@@ -24,9 +24,7 @@ import java.util.logging.Logger;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.ProcessEngineServices;
 import org.camunda.bpm.engine.SuspendedEntityInteractionException;
-import org.camunda.bpm.engine.delegate.CoreVariableInstance;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
-import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParse;
 import org.camunda.bpm.engine.impl.bpmn.parser.EventSubscriptionDeclaration;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -35,7 +33,8 @@ import org.camunda.bpm.engine.impl.cmmn.execution.CmmnExecution;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.core.instance.CoreExecution;
 import org.camunda.bpm.engine.impl.core.operation.CoreAtomicOperation;
-import org.camunda.bpm.engine.impl.core.variable.CorePersistentVariableStore;
+import org.camunda.bpm.engine.impl.core.variable.CoreVariableInstance;
+import org.camunda.bpm.engine.impl.core.variable.scope.CoreVariableStore;
 import org.camunda.bpm.engine.impl.db.DbEntity;
 import org.camunda.bpm.engine.impl.db.HasDbReferences;
 import org.camunda.bpm.engine.impl.db.HasDbRevision;
@@ -61,7 +60,7 @@ import org.camunda.bpm.engine.impl.pvm.runtime.PvmExecutionImpl;
 import org.camunda.bpm.engine.impl.pvm.runtime.operation.FoxAtomicOperationDeleteCascadeFireActivityEnd;
 import org.camunda.bpm.engine.impl.pvm.runtime.operation.PvmAtomicOperation;
 import org.camunda.bpm.engine.impl.util.BitMaskUtil;
-import org.camunda.bpm.engine.impl.variable.VariableDeclaration;
+import org.camunda.bpm.engine.impl.variable.deprecated.VariableDeclaration;
 import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -984,10 +983,10 @@ public class ExecutionEntity extends PvmExecutionImpl implements
 
   public void fireHistoricVariableInstanceCreateEvents() {
     // this method is called by the start context and batch-fires create events for all variable instances
-    Map<String, PersistentVariableInstance> variableInstances = variableStore.getVariableInstances();
+    Map<String, CoreVariableInstance> variableInstances = variableStore.getVariableInstances();
     if(variableInstances != null) {
-      for (Entry<String, PersistentVariableInstance> variable : variableInstances.entrySet()) {
-        variableStore.fireHistoricVariableInstanceCreate((VariableInstanceEntity) variable.getValue(), this);
+      for (Entry<String, CoreVariableInstance> variable : variableInstances.entrySet()) {
+        variableStore.fireHistoricVariableInstanceCreate((VariableInstanceEntity) variable, this);
       }
     }
   }
@@ -1246,7 +1245,7 @@ public class ExecutionEntity extends PvmExecutionImpl implements
 
   // variables /////////////////////////////////////////////////////////
 
-  protected CorePersistentVariableStore getVariableStore() {
+  protected CoreVariableStore getVariableStore() {
     return variableStore;
   }
 

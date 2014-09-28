@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.engine.ProcessEngineException;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricDetailQuery;
@@ -40,6 +39,7 @@ import org.camunda.bpm.engine.test.api.runtime.DummySerializable;
 import org.camunda.bpm.engine.test.api.runtime.util.CustomSerializable;
 import org.camunda.bpm.engine.test.api.runtime.util.FailingSerializable;
 import org.camunda.bpm.engine.test.history.SerializableVariable;
+import org.camunda.bpm.engine.variable.VariableType;
 import org.junit.Assert;
 
 
@@ -181,35 +181,35 @@ public class FullHistoryTest extends ResourceProcessEngineTestCase {
     // Variable status when process is finished
     HistoricVariableInstance historicVariable = historicVariables.get(0);
     assertEquals("bytes", historicVariable.getVariableName());
-    assertEquals(":-)", new String((byte[])historicVariable.getValue()));
+    assertEquals(":-)", new String((byte[])historicVariable.getTypedValue()));
 
     historicVariable = historicVariables.get(1);
     assertEquals("character", historicVariable.getVariableName());
-    assertEquals("a", historicVariable.getValue());
+    assertEquals("a", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(2);
     assertEquals("number", historicVariable.getVariableName());
-    assertEquals("two", historicVariable.getValue());
+    assertEquals("two", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(3);
     assertEquals("zVar1", historicVariable.getVariableName());
-    assertEquals("Event: start", historicVariable.getValue());
+    assertEquals("Event: start", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(4);
     assertEquals("zVar2", historicVariable.getVariableName());
-    assertEquals("Event: take", historicVariable.getValue());
+    assertEquals("Event: take", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(5);
     assertEquals("zVar3", historicVariable.getVariableName());
-    assertEquals("Event: start", historicVariable.getValue());
+    assertEquals("Event: start", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(6);
     assertEquals("zVar4", historicVariable.getVariableName());
-    assertEquals("Event: end", historicVariable.getValue());
+    assertEquals("Event: end", historicVariable.getTypedValue());
 
     historicVariable = historicVariables.get(7);
     assertEquals("zzz", historicVariable.getVariableName());
-    assertEquals(123456789L, historicVariable.getValue());
+    assertEquals(123456789L, historicVariable.getTypedValue());
   }
 
   @Deployment(resources="org/camunda/bpm/engine/test/standalone/history/FullHistoryTest.testVariableUpdates.bpmn20.xml")
@@ -233,13 +233,13 @@ public class FullHistoryTest extends ResourceProcessEngineTestCase {
 
     HistoricVariableInstance historicProcessVariable = historyService.createHistoricVariableInstanceQuery().variableValueEquals("process", "one").singleResult();
     assertEquals("process", historicProcessVariable.getVariableName());
-    assertEquals("one", historicProcessVariable.getValue());
-    assertEquals(ProcessEngineVariableType.STRING.getName(), historicProcessVariable.getVariableTypeName());
+    assertEquals("one", historicProcessVariable.getTypedValue());
+    assertEquals(VariableType.STRING.getName(), historicProcessVariable.getVariableTypeName());
     assertEquals(String.class.getSimpleName(), historicProcessVariable.getValueTypeName());
 
-    SerializedVariableValue serializedValue = historicProcessVariable.getSerializedValue();
+    SerializedObjectVariableValue serializedValue = historicProcessVariable.getSerializedValue();
     assertNotNull(serializedValue);
-    assertEquals("one", serializedValue.getValue());
+    assertEquals("one", serializedValue.getTypedValue());
     assertTrue(serializedValue.getConfig().isEmpty());
 
     Map<String, Object> variables3 = new HashMap<String, Object>();
@@ -358,42 +358,42 @@ public class FullHistoryTest extends ResourceProcessEngineTestCase {
  // Variable status when process is finished
     HistoricVariableInstance historicVariable = historicVariables.get(0);
     assertEquals("aVariable", historicVariable.getVariableName());
-    assertEquals("updated value", historicVariable.getValue());
+    assertEquals("updated value", historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(1);
     assertEquals("bVariable", historicVariable.getVariableName());
-    assertEquals(123, historicVariable.getValue());
+    assertEquals(123, historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(2);
     assertEquals("cVariable", historicVariable.getVariableName());
-    assertEquals(12345L, historicVariable.getValue());
+    assertEquals(12345L, historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(3);
     assertEquals("dVariable", historicVariable.getVariableName());
-    assertEquals(1234.567, historicVariable.getValue());
+    assertEquals(1234.567, historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(4);
     assertEquals("eVariable", historicVariable.getVariableName());
-    assertEquals((short) 12, historicVariable.getValue());
+    assertEquals((short) 12, historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(5);
     assertEquals("fVariable", historicVariable.getVariableName());
-    assertEquals(sdf.parse("01/01/2001 01:23:45 678"), historicVariable.getValue());
+    assertEquals(sdf.parse("01/01/2001 01:23:45 678"), historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(6);
     assertEquals("gVariable", historicVariable.getVariableName());
-    assertEquals(new SerializableVariable("hello hello"), historicVariable.getValue());
+    assertEquals(new SerializableVariable("hello hello"), historicVariable.getTypedValue());
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
 
     historicVariable = historicVariables.get(7);
     assertEquals("hVariable", historicVariable.getVariableName());
-    assertEquals(";-)", ";-)", new String((byte[])historicVariable.getValue()));
+    assertEquals(";-)", ";-)", new String((byte[])historicVariable.getTypedValue()));
     assertEquals(processInstance.getId(), historicVariable.getProcessInstanceId());
   }
 
@@ -1288,12 +1288,12 @@ public class FullHistoryTest extends ResourceProcessEngineTestCase {
     assertEquals(result.getId(), resultById.getId());
     assertEquals(variableName, ((HistoricVariableUpdate)resultById).getVariableName());
     assertEquals(variableValue, ((HistoricVariableUpdate)resultById).getValue());
-    assertEquals(ProcessEngineVariableType.STRING.getName(), ((HistoricVariableUpdate)resultById).getVariableTypeName());
+    assertEquals(VariableType.STRING.getName(), ((HistoricVariableUpdate)resultById).getVariableTypeName());
     assertEquals(String.class.getSimpleName(), ((HistoricVariableUpdate)resultById).getValueTypeName());
 
-    SerializedVariableValue serializedValue = ((HistoricVariableUpdate)resultById).getSerializedValue();
+    SerializedObjectVariableValue serializedValue = ((HistoricVariableUpdate)resultById).getSerializedValue();
     assertNotNull(serializedValue);
-    assertEquals(variableValue, serializedValue.getValue());
+    assertEquals(variableValue, serializedValue.getTypedValue());
     assertTrue(serializedValue.getConfig().isEmpty());
 
     taskService.deleteTask(newTask.getId(), true);
@@ -1376,17 +1376,17 @@ public class FullHistoryTest extends ResourceProcessEngineTestCase {
       if(update.getVariableName().equals("customSerializable")) {
         assertNull(update.getErrorMessage());
 
-        SerializedVariableValue serializedValue = update.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = update.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
       if(update.getVariableName().equals("failingSerializable")) {
         // no error message is present
         assertNull(update.getErrorMessage());
 
-        SerializedVariableValue serializedValue = update.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = update.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
     }
 

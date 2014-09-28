@@ -191,7 +191,7 @@ public class ExecutionListenerTest extends PluggableProcessEngineTestCase {
       for (String variableName : variableNames) {
         variableInstance = query.variableName(variableName).singleResult();
         assertNotNull("Unable ot find variable with name '" + variableName + "'", variableInstance);
-        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getValue());
+        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getTypedValue());
       }
     }
   }
@@ -214,7 +214,7 @@ public class ExecutionListenerTest extends PluggableProcessEngineTestCase {
       for (String variableName : variableNames) {
         variableInstance = query.variableName(variableName).singleResult();
         assertNotNull("Unable ot find variable with name '" + variableName + "'", variableInstance);
-        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getValue());
+        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getTypedValue());
       }
     }
   }

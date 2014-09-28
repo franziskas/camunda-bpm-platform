@@ -7,7 +7,7 @@ import org.camunda.bpm.engine.impl.pvm.process.ActivityImpl;
 import org.camunda.bpm.engine.impl.pvm.process.ScopeImpl;
 import org.camunda.bpm.engine.impl.pvm.process.TransitionImpl;
 import org.camunda.bpm.engine.impl.util.xml.Element;
-import org.camunda.bpm.engine.impl.variable.VariableDeclaration;
+import org.camunda.bpm.engine.impl.variable.deprecated.VariableDeclaration;
 
 /**
  * Abstract base class for implementing a {@link BpmnParseListener} without being forced to implement

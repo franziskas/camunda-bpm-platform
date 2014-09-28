@@ -14,7 +14,7 @@ package org.camunda.bpm.engine.impl.core.mapping;
 
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.bpm.engine.impl.core.mapping.value.ParameterValueProvider;
-import org.camunda.bpm.engine.impl.core.variable.CoreVariableScope;
+import org.camunda.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
 
 /**
  * An {@link IoParameter} creates a variable
@@ -43,7 +43,7 @@ public abstract class IoParameter {
   /**
    * Execute the parameter in a given variable scope.
    */
-  public void execute(CoreVariableScope<?> scope) {
+  public void execute(AbstractVariableScope scope) {
     execute(scope, scope.getParentVariableScope());
   }
 
@@ -51,7 +51,7 @@ public abstract class IoParameter {
    * @param innerScope
    * @param outerScope
    */
-  protected abstract void execute(CoreVariableScope<?> innerScope, CoreVariableScope<?> outerScope);
+  protected abstract void execute(AbstractVariableScope innerScope, AbstractVariableScope outerScope);
 
   // getters / setters ///////////////////////////
 

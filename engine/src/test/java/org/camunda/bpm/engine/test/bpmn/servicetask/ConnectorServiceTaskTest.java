@@ -55,7 +55,7 @@ public class ConnectorServiceTaskTest extends PluggableProcessEngineTestCase {
     // validate connector output
     VariableInstance variable = runtimeService.createVariableInstanceQuery().variableName("out1").singleResult();
     assertNotNull(variable);
-    assertEquals(outputParamValue, variable.getValue());
+    assertEquals(outputParamValue, variable.getTypedValue());
 
   }
 
@@ -79,7 +79,7 @@ public class ConnectorServiceTaskTest extends PluggableProcessEngineTestCase {
     // validate output parameter
     VariableInstance out = runtimeService.createVariableInstanceQuery().variableName("out").singleResult();
     assertNotNull(out);
-    assertEquals(3 * x, out.getValue());
+    assertEquals(3 * x, out.getTypedValue());
   }
 
 }

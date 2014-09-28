@@ -67,7 +67,7 @@ public class GetTaskFormVariablesCmd extends AbstractGetFormVariablesCmd {
       if(variableInstance.storesCustomObjects()) {
         try {
             variableInstance.getSerializedValue();
-            variableInstance.getValue();
+            variableInstance.getTypedValue();
         } catch(Exception t) {
           // do not fail if one of the variables fails to load
           log.log(Level.FINE, "Exception while getting value for variable", t);

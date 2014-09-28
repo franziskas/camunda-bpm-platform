@@ -17,26 +17,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.camunda.bpm.engine.ProcessEngineException;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.impl.core.variable.SerializedVariableValueImpl;
 import org.camunda.bpm.engine.impl.db.sql.DbSqlSessionFactory;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
-import org.camunda.bpm.engine.impl.variable.ValueFields;
-import org.camunda.bpm.engine.impl.variable.VariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueFields;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.variable.VariableType;
 import org.camunda.spin.DataFormats;
 import org.camunda.spin.Spin;
 import org.camunda.spin.SpinFactory;
 import org.camunda.spin.SpinRuntimeException;
 import org.camunda.spin.spi.DataFormat;
 
-public class SpinSerializationType implements VariableType {
+public class SpinSerializationType implements ValueSerializer {
 
   protected Map<String, DataFormat<?>> availableDataFormats = new HashMap<String, DataFormat<?>>();
   protected DataFormat<?> defaultDataFormat;
 
-  protected static final String CONFIG_DATA_FORMAT = ProcessEngineVariableType.SPIN_TYPE_DATA_FORMAT_ID;
-  protected static final String CONFIG_ROOT_TYPE = ProcessEngineVariableType.SPIN_TYPE_CONFIG_ROOT_TYPE;
+  protected static final String CONFIG_DATA_FORMAT = VariableType.SPIN_TYPE_DATA_FORMAT_ID;
+  protected static final String CONFIG_ROOT_TYPE = VariableType.SPIN_TYPE_CONFIG_ROOT_TYPE;
 
   public SpinSerializationType(DataFormat<?> defaultDataFormat) {
 
@@ -48,14 +48,14 @@ public class SpinSerializationType implements VariableType {
   }
 
   public String getTypeName() {
-    return ProcessEngineVariableType.SPIN.getName();
+    return VariableType.SPIN.getName();
   }
 
   public boolean isCachable() {
     return true;
   }
 
-  public boolean isAbleToStore(Object value) {
+  public boolean canHandle(Object value) {
     return true;
   }
 
@@ -117,7 +117,7 @@ public class SpinSerializationType implements VariableType {
     return defaultDataFormat;
   }
 
-  public SerializedVariableValue getSerializedValue(ValueFields valueFields) {
+  public SerializedObjectVariableValue getSerializedValue(ValueFields valueFields) {
     SerializedVariableValueImpl value = new SerializedVariableValueImpl();
 
     String serializedValue = null;

@@ -14,19 +14,19 @@ package org.camunda.bpm.engine.impl.spin;
 
 import java.util.Set;
 
-import org.camunda.bpm.engine.impl.variable.SerializationVariableTypeResolver;
-import org.camunda.bpm.engine.impl.variable.VariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.SerializationVariableTypeResolver;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
 import org.camunda.spin.DataFormats;
 import org.camunda.spin.spi.DataFormat;
 
 /**
- * Creates {@link VariableType}s that use Spin dataformats for serialization and deserialization.
+ * Creates {@link ValueSerializer}s that use Spin dataformats for serialization and deserialization.
  *
  * @author Thorben Lindhauer
  */
 public class SpinVariableTypeResolver implements SerializationVariableTypeResolver {
 
-  public VariableType getTypeForSerializationFormat(String defaultSerializationFormat) {
+  public ValueSerializer getTypeForSerializationFormat(String defaultSerializationFormat) {
     Set<DataFormat<?>> availableDataFormats = lookupDataFormats();
 
     DataFormat<?> defaultFormat = null;

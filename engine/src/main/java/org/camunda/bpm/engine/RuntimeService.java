@@ -30,6 +30,7 @@ import org.camunda.bpm.engine.runtime.NativeProcessInstanceQuery;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.runtime.VariableInstanceQuery;
+import org.camunda.bpm.engine.variable.VariableMap;
 
 
 /** Service which provides access to {@link Deployment}s,
@@ -469,7 +470,7 @@ public interface RuntimeService {
    * @param executionId id of process instance or execution, cannot be null.
    * @return the variables or an empty map if no such variables are found.
    * @throws ProcessEngineException when no execution is found for the given executionId. */
-  Map<String, Object> getVariables(String executionId);
+  VariableMap getVariables(String executionId);
 
   /** All variable values that are defined in the execution scope, without taking outer scopes into account.
    * If you have many task local variables and you only need a few, consider using {@link #getVariablesLocal(String, Collection)}
@@ -477,21 +478,21 @@ public interface RuntimeService {
    * @param executionId id of execution, cannot be null.
    * @return the variables or an empty map if no such variables are found.
    * @throws ProcessEngineException when no execution is found for the given executionId. */
-   Map<String, Object> getVariablesLocal(String executionId);
+  VariableMap getVariablesLocal(String executionId);
 
    /** The variable values for all given variableNames, takes all variables into account which are visible from the given execution scope (including parent scopes).
    * @param executionId id of process instance or execution, cannot be null.
    * @param variableNames the collection of variable names that should be retrieved.
    * @return the variables or an empty map if no such variables are found.
    * @throws ProcessEngineException when no execution is found for the given executionId. */
-   Map<String, Object> getVariables(String executionId, Collection<String> variableNames);
+  VariableMap getVariables(String executionId, Collection<String> variableNames);
 
    /** The variable values for the given variableNames only taking the given execution scope into account, not looking in outer scopes.
    * @param executionId id of execution, cannot be null.
    * @param variableNames the collection of variable names that should be retrieved.
    * @return the variables or an empty map if no such variables are found.
    * @throws ProcessEngineException when no execution is found for the given executionId.  */
-   Map<String, Object> getVariablesLocal(String executionId, Collection<String> variableNames);
+  VariableMap getVariablesLocal(String executionId, Collection<String> variableNames);
 
   /** The variable value.  Searching for the variable is done in all scopes that are visible to the given execution (including parent scopes).
    * Returns null when no variable value is found with the given name or when the value is set to null.
@@ -515,53 +516,6 @@ public interface RuntimeService {
    * @throws ProcessEngineException when no execution is found for the given executionId.
    */
   void setVariable(String executionId, String variableName, Object value);
-
-  /**
-   * <p>Update or create a variable for an execution from its serialized representation.
-   * If the variable does not already exist
-   * in the upwards execution hierarchy (i.e. the specified execution or any ancestor),
-   * it will be created in the process instance (which is the root execution).</p>
-   *
-   * <p>
-   * See {@link ProcessEngineVariableType} for available variable types and their required
-   * configuration options.
-   * </p>
-   *
-   * @param executionId id of process instance or execution to set variable for, cannot be null.
-   * @param variableName name of variable to set, cannot be null
-   * @param serializedValue Serialized value of the variable to set; Expected value types are defined
-   * variable-type-specific and defined in {@link ProcessEngineVariableType}.
-   * @param variableTypeName Type of the variable to set. Defined in {@link ProcessEngineVariableType}.
-   * @param variableConfiguration Variable-type-specific configuration of the serialized value. Defined in {@link ProcessEngineVariableType}.
-   * @throws ProcessEngineException when no execution is found or the serialized value or its
-   * configuration is not consistent with the chosen variable type
-   */
-  void setVariableFromSerialized(String executionId, String variableName, Object serializedValue,
-      String variableTypeName, Map<String, Object> variableConfiguration);
-
-  /**
-   * <p>
-   * Update or create a variable for an execution (not considering parent scopes) from its serialized
-   * representation.
-   * If the variable does not already exist, it will be created in the given execution.
-   * </p>
-   *
-   * <p>
-   * See {@link ProcessEngineVariableType} for available variable types and their required
-   * configuration options.
-   * </p>
-   *
-   * @param executionId id of process instance or execution to set variable for, cannot be null.
-   * @param variableName name of variable to set, cannot be null
-   * @param serializedValue Serialized value of the variable to set; Expected value types are defined
-   * variable-type-specific and defined in {@link ProcessEngineVariableType}.
-   * @param variableTypeName Type of the variable to set. Defined in {@link ProcessEngineVariableType}.
-   * @param variableConfiguration Variable-type-specific configuration of the serialized value. Defined in {@link ProcessEngineVariableType}.
-   * @throws ProcessEngineException when no execution is found or the serialized value or its
-   * configuration is not consistent with the chosen variable type
-   */
-  void setVariableLocalFromSerialized(String executionId, String variableName, Object serializedValue,
-      String variableTypeName, Map<String, Object> variableConfiguration);
 
   /** Update or create a variable for an execution (not considering parent scopes).
    * If the variable does not already exist, it will be created in the given execution.

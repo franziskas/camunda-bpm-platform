@@ -161,10 +161,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -228,10 +228,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -296,13 +296,13 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else if (variable.getName().equals("aThirdVariable")) {
         assertEquals("aThirdVariable", variable.getName());
-        assertEquals(123, variable.getValue());
+        assertEquals(123, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -355,10 +355,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -380,10 +380,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -440,10 +440,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -465,10 +465,10 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -525,13 +525,13 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else if (variable.getName().equals("aThirdVariable")) {
         assertEquals("aThirdVariable", variable.getName());
-        assertEquals(123, variable.getValue());
+        assertEquals(123, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -553,13 +553,13 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
       if (variable.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else if (variable.getName().equals("aThirdVariable")) {
         assertEquals("aThirdVariable", variable.getName());
-        assertEquals(123, variable.getValue());
+        assertEquals(123, variable.getTypedValue());
       } else {
         fail("Unexpected variable: " + variable.getName());
       }
@@ -613,7 +613,7 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
 
     assertNotNull(aThirdVariable);
     assertEquals("aThirdVariable", aThirdVariable.getName());
-    assertEquals(123, aThirdVariable.getValue());
+    assertEquals(123, aThirdVariable.getTypedValue());
 
     // query by caseInstanceId
     result = runtimeService
@@ -632,21 +632,21 @@ public class CaseServiceTest extends PluggableProcessEngineTestCase {
         assertEquals(caseInstanceId, variable.getCaseInstanceId());
 
         assertEquals("aVariableName", variable.getName());
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
 
       } else if (variable.getName().equals("anotherVariableName")) {
         assertEquals(caseInstanceId, variable.getCaseExecutionId());
         assertEquals(caseInstanceId, variable.getCaseInstanceId());
 
         assertEquals("anotherVariableName", variable.getName());
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
 
       } else if (variable.getName().equals("aThirdVariable")) {
         assertEquals(caseExecutionId, variable.getCaseExecutionId());
         assertEquals(caseInstanceId, variable.getCaseInstanceId());
 
         assertEquals("aThirdVariable", variable.getName());
-        assertEquals(123, variable.getValue());
+        assertEquals(123, variable.getTypedValue());
 
       } else {
         fail("Unexpected variable: " + variable.getName());

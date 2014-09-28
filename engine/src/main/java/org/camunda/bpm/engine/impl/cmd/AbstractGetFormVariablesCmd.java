@@ -20,8 +20,8 @@ import org.camunda.bpm.engine.form.FormField;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.Command;
 import org.camunda.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
-import org.camunda.bpm.engine.impl.variable.VariableType;
-import org.camunda.bpm.engine.impl.variable.VariableTypes;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.VariableValueSerializers;
 import org.camunda.bpm.engine.runtime.VariableInstance;
 
 /**
@@ -48,14 +48,14 @@ public abstract class AbstractGetFormVariablesCmd implements Command<Map<String,
     variableInstance.setName(formField.getId());
 
     // type
-    VariableTypes variableTypes = Context.getProcessEngineConfiguration()
+    VariableValueSerializers variableValueSerializers = Context.getProcessEngineConfiguration()
       .getVariableTypes();
 
-    VariableType variableType = variableTypes.getVariableType(formField.getTypeName());
-    if(variableType == null) {
+    ValueSerializer valueSerializer = variableValueSerializers.getHandlerByName(formField.getTypeName());
+    if(valueSerializer == null) {
       throw new ProcessEngineException("Unsupported variable type '"+formField.getTypeName()+ "'.");
     }
-    variableInstance.setType(variableType);
+    variableInstance.setSerializer(valueSerializer);
 
     // value
     Object defaultValue = formField.getDefaultValue();

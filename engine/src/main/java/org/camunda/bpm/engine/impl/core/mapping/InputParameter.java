@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.impl.core.mapping.value.ParameterValueProvider;
-import org.camunda.bpm.engine.impl.core.variable.CoreVariableScope;
+import org.camunda.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
 
 /**
  *
@@ -38,7 +38,7 @@ public class InputParameter extends IoParameter {
     super(name, valueProvider);
   }
 
-  protected void execute(CoreVariableScope<?> innerScope, CoreVariableScope<?> outerScope) {
+  protected void execute(AbstractVariableScope innerScope, AbstractVariableScope outerScope) {
 
     // get value from outer scope
     Object value = valueProvider.getValue(outerScope);

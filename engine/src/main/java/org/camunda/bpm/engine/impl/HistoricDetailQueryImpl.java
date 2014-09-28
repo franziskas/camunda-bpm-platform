@@ -19,12 +19,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricDetailQuery;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntity;
+import org.camunda.bpm.engine.variable.VariableType;
 
 
 /**
@@ -178,7 +178,7 @@ public class HistoricDetailQueryImpl extends AbstractQuery<HistoricDetailQuery, 
    * binary fetching disabled
    */
   protected boolean shouldFetchSerializedValueFor(HistoricDetailVariableInstanceUpdateEntity variableInstance) {
-    boolean shouldFetchBytes = !ProcessEngineVariableType.BYTES.getName().equals(variableInstance.getVariableType().getTypeName())
+    boolean shouldFetchBytes = !VariableType.BYTES.getName().equals(variableInstance.getVariableType().getSerializerName())
         || isByteArrayFetchingEnabled;
 
     return shouldFetchBytes;

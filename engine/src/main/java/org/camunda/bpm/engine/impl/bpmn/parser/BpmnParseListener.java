@@ -20,7 +20,7 @@ import org.camunda.bpm.engine.impl.pvm.process.ActivityImpl;
 import org.camunda.bpm.engine.impl.pvm.process.ScopeImpl;
 import org.camunda.bpm.engine.impl.pvm.process.TransitionImpl;
 import org.camunda.bpm.engine.impl.util.xml.Element;
-import org.camunda.bpm.engine.impl.variable.VariableDeclaration;
+import org.camunda.bpm.engine.impl.variable.deprecated.VariableDeclaration;
 
 /**
  * Listener which can be registered within the engine to receive events during parsing (and

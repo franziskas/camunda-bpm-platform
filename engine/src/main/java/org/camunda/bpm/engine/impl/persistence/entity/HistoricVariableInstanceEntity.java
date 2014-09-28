@@ -17,14 +17,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
 import org.camunda.bpm.engine.history.HistoricVariableInstance;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.db.HasDbRevision;
 import org.camunda.bpm.engine.impl.db.DbEntity;
 import org.camunda.bpm.engine.impl.history.event.HistoricVariableUpdateEventEntity;
-import org.camunda.bpm.engine.impl.variable.ValueFields;
-import org.camunda.bpm.engine.impl.variable.VariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueFields;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.variable.value.VariableValue;
 
 /**
  * @author Christian Lipphardt (camunda)
@@ -43,7 +43,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
   protected String name;
   protected int revision;
   protected String variableTypeName;
-  protected VariableType variableType;
+  protected ValueSerializer valueSerializer;
 
   protected Long longValue;
   protected Double doubleValue;
@@ -53,7 +53,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
   protected ByteArrayEntity byteArrayValue;
   protected String byteArrayId;
 
-  protected Object cachedValue;
+  protected VariableValue cachedValue;
 
   protected String errorMessage;
 
@@ -112,9 +112,18 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
   }
 
   public Object getValue() {
-    if (errorMessage == null && (!variableType.isCachable() || cachedValue==null)) {
+    VariableValue variableValue = getVariableValue();
+    if(variableValue != null) {
+      return variableValue.getValue();
+    } else {
+      return null;
+    }
+  }
+
+  public VariableValue getVariableValue() {
+    if (errorMessage == null && (!valueSerializer.isCachable() || cachedValue==null)) {
       try {
-        cachedValue = variableType.getValue(this);
+        cachedValue = valueSerializer.getValue(this);
 
       } catch(RuntimeException e) {
         // catch error message
@@ -204,8 +213,8 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
     return name;
   }
 
-  public VariableType getVariableType() {
-    return variableType;
+  public ValueSerializer getVariableType() {
+    return valueSerializer;
   }
 
   public int getRevision() {
@@ -260,16 +269,16 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
     this.byteArrayValue = byteArrayValue;
   }
 
-  public Object getCachedValue() {
+  public VariableValue getCachedValue() {
     return cachedValue;
   }
 
-  public void setCachedValue(Object cachedValue) {
+  public void setCachedValue(VariableValue cachedValue) {
     this.cachedValue = cachedValue;
   }
 
-  public void setVariableType(VariableType variableType) {
-    this.variableType = variableType;
+  public void setVariableType(ValueSerializer valueSerializer) {
+    this.valueSerializer = valueSerializer;
   }
 
   public void setProcessInstanceId(String processInstanceId) {
@@ -327,18 +336,6 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
 
   public void setDataFormatId(String dataFormatId) {
     this.dataFormatId = dataFormatId;
-  }
-
-  public SerializedVariableValue getSerializedValue() {
-    return variableType.getSerializedValue(this);
-  }
-
-  public String getValueTypeName() {
-    return variableType.getTypeNameForValue(this);
-  }
-
-  public boolean storesCustomObjects() {
-    return variableType.storesCustomObjects();
   }
 
   @Override

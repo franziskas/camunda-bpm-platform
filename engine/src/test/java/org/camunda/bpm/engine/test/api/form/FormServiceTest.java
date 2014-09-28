@@ -509,21 +509,21 @@ public class FormServiceTest extends PluggableProcessEngineTestCase {
     assertEquals(4, variables.size());
 
     VariableInstance variable = variables.get("stringField");
-    assertEquals("someString", variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertEquals("someString", variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     variable = variables.get("longField");
-    assertEquals(5l, variable.getValue());
-    assertEquals("long", variable.getTypeName());
+    assertEquals(5l, variable.getTypedValue());
+    assertEquals("long", variable.getSerializerName());
 
     variable = variables.get("customField");
-    assertNull(variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertNull(variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     variable = variables.get("dateField");
-    assertNotNull(variable.getValue());
-    assertEquals("date", variable.getTypeName());
-    Date dateValue = (Date) variable.getValue();
+    assertNotNull(variable.getTypedValue());
+    assertEquals("date", variable.getSerializerName());
+    Date dateValue = (Date) variable.getTypedValue();
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(dateValue);
     assertEquals(10, calendar.get(Calendar.DAY_OF_MONTH));
@@ -534,8 +534,8 @@ public class FormServiceTest extends PluggableProcessEngineTestCase {
     variables = formService.getStartFormVariables(processDefinition.getId(), Arrays.asList("stringField"));
     assertEquals(1, variables.size());
     variable = variables.get("stringField");
-    assertEquals("someString", variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertEquals("someString", variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     // request non-existing variable
     variables = formService.getStartFormVariables(processDefinition.getId(), Arrays.asList("non-existing!"));
@@ -576,31 +576,31 @@ public class FormServiceTest extends PluggableProcessEngineTestCase {
     assertEquals(7, variables.size());
 
     VariableInstance variable = variables.get("stringField");
-    assertEquals("someString", variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertEquals("someString", variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     variable = variables.get("longField");
-    assertEquals(5l, variable.getValue());
-    assertEquals("long", variable.getTypeName());
+    assertEquals(5l, variable.getTypedValue());
+    assertEquals("long", variable.getSerializerName());
 
     variable = variables.get("customField");
-    assertNull(variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertNull(variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     variable = variables.get("someString");
-    assertEquals("initialValue", variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertEquals("initialValue", variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     variable = variables.get("initialBooleanVariable");
-    assertEquals(true, variable.getValue());
-    assertEquals("boolean", variable.getTypeName());
+    assertEquals(true, variable.getTypedValue());
+    assertEquals("boolean", variable.getSerializerName());
 
     variable = variables.get("initialLongVariable");
-    assertEquals(1l, variable.getValue());
-    assertEquals("long", variable.getTypeName());
+    assertEquals(1l, variable.getTypedValue());
+    assertEquals("long", variable.getSerializerName());
 
     variable = variables.get("serializable");
-    assertNotNull(variable.getValue());
+    assertNotNull(variable.getTypedValue());
 
     // override the long variable
     taskService.setVariableLocal(task.getId(), "initialLongVariable", 2l);
@@ -609,22 +609,22 @@ public class FormServiceTest extends PluggableProcessEngineTestCase {
     assertEquals(7, variables.size());
 
     variable = variables.get("initialLongVariable");
-    assertEquals(2l, variable.getValue());
-    assertEquals("long", variable.getTypeName());
+    assertEquals(2l, variable.getTypedValue());
+    assertEquals("long", variable.getSerializerName());
 
     // get restricted set of variables (form field):
     variables = formService.getTaskFormVariables(task.getId(), Arrays.asList("someString"));
     assertEquals(1, variables.size());
     variable = variables.get("someString");
-    assertEquals("initialValue", variable.getValue());
-    assertEquals("string", variable.getTypeName());
+    assertEquals("initialValue", variable.getTypedValue());
+    assertEquals("string", variable.getSerializerName());
 
     // get restricted set of variables (process variable):
     variables = formService.getTaskFormVariables(task.getId(), Arrays.asList("initialBooleanVariable"));
     assertEquals(1, variables.size());
     variable = variables.get("initialBooleanVariable");
-    assertEquals(true, variable.getValue());
-    assertEquals("boolean", variable.getTypeName());
+    assertEquals(true, variable.getTypedValue());
+    assertEquals("boolean", variable.getSerializerName());
 
     // request non-existing variable
     variables = formService.getTaskFormVariables(task.getId(), Arrays.asList("non-existing!"));

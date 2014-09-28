@@ -397,7 +397,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .singleResult();
 
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
     assertEquals("subVariable", variable.getName());
   }
 
@@ -426,7 +426,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("superVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
     // the sub process instance is in the task
     Task task = taskService.createTaskQuery().singleResult();
@@ -447,7 +447,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .singleResult();
 
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
     assertEquals("subVariable", variable.getName());
   }
 
@@ -492,7 +492,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("superVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
     variable = runtimeService
         .createVariableInstanceQuery()
@@ -500,7 +500,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("hisLocalVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
   }
 
@@ -526,7 +526,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("superVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
     // the sub process instance is in the task
     Task task = taskService.createTaskQuery().singleResult();
@@ -548,7 +548,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("superVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
     variable = runtimeService
         .createVariableInstanceQuery()
@@ -556,7 +556,7 @@ public class CallActivityAdvancedTest extends PluggableProcessEngineTestCase {
         .variableName("hisLocalVariable")
         .singleResult();
     assertNotNull(variable);
-    assertNull(variable.getValue());
+    assertNull(variable.getTypedValue());
 
   }
 

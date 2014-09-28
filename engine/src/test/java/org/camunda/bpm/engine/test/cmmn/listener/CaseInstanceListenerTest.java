@@ -43,10 +43,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -68,10 +68,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -93,10 +93,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -117,10 +117,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -144,10 +144,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -172,10 +172,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -200,10 +200,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -227,10 +227,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -252,10 +252,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -278,10 +278,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -304,10 +304,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -329,10 +329,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -354,10 +354,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -380,10 +380,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -406,10 +406,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -431,10 +431,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -460,10 +460,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -488,10 +488,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -516,10 +516,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -545,10 +545,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(1, query.variableName("eventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("eventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
   }
 
@@ -691,27 +691,27 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(16, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertEquals(6, query.variableName("eventCounter").singleResult().getValue());
+    assertEquals(6, query.variableName("eventCounter").singleResult().getTypedValue());
 
   }
 
@@ -745,27 +745,27 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(17, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertEquals(6, query.variableName("eventCounter").singleResult().getValue());
+    assertEquals(6, query.variableName("eventCounter").singleResult().getTypedValue());
 
   }
 
@@ -799,27 +799,27 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(17, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertEquals(6, query.variableName("eventCounter").singleResult().getValue());
+    assertEquals(6, query.variableName("eventCounter").singleResult().getTypedValue());
 
   }
 
@@ -852,27 +852,27 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(16, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("suspend").singleResult().getValue());
-    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("suspend").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("suspendEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("suspendOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("reactivate").singleResult().getValue());
-    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("reactivate").singleResult().getTypedValue());
+    assertEquals(2, query.variableName("reactivateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("reactivateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertEquals(6, query.variableName("eventCounter").singleResult().getValue());
+    assertEquals(6, query.variableName("eventCounter").singleResult().getTypedValue());
 
   }
 
@@ -893,10 +893,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(4, query.count());
 
-    assertEquals("Hello from The Case", query.variableName("greeting").singleResult().getValue());
-    assertEquals("Hello World", query.variableName("helloWorld").singleResult().getValue());
-    assertEquals("cam", query.variableName("prefix").singleResult().getValue());
-    assertEquals("unda", query.variableName("suffix").singleResult().getValue());
+    assertEquals("Hello from The Case", query.variableName("greeting").singleResult().getTypedValue());
+    assertEquals("Hello World", query.variableName("helloWorld").singleResult().getTypedValue());
+    assertEquals("cam", query.variableName("prefix").singleResult().getTypedValue());
+    assertEquals("unda", query.variableName("suffix").singleResult().getTypedValue());
 
   }
 
@@ -918,10 +918,10 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(5, query.count());
 
-    assertEquals("Hello from The Case", query.variableName("greeting").singleResult().getValue());
-    assertEquals("Hello World", query.variableName("helloWorld").singleResult().getValue());
-    assertEquals("cam", query.variableName("prefix").singleResult().getValue());
-    assertEquals("unda", query.variableName("suffix").singleResult().getValue());
+    assertEquals("Hello from The Case", query.variableName("greeting").singleResult().getTypedValue());
+    assertEquals("Hello World", query.variableName("helloWorld").singleResult().getTypedValue());
+    assertEquals("cam", query.variableName("prefix").singleResult().getTypedValue());
+    assertEquals("unda", query.variableName("suffix").singleResult().getTypedValue());
 
   }
 
@@ -953,19 +953,19 @@ public class CaseInstanceListenerTest extends PluggableProcessEngineTestCase {
 
     assertEquals(10, query.count());
 
-    assertTrue((Boolean) query.variableName("create").singleResult().getValue());
-    assertEquals(1, query.variableName("createEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("create").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("createEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("createOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("complete").singleResult().getValue());
-    assertEquals(1, query.variableName("completeEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("complete").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("completeEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("completeOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertTrue((Boolean) query.variableName("terminate").singleResult().getValue());
-    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getValue());
-    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getValue());
+    assertTrue((Boolean) query.variableName("terminate").singleResult().getTypedValue());
+    assertEquals(1, query.variableName("terminateEventCounter").singleResult().getTypedValue());
+    assertEquals(caseInstanceId, query.variableName("terminateOnCaseExecutionId").singleResult().getTypedValue());
 
-    assertEquals(3, query.variableName("eventCounter").singleResult().getValue());
+    assertEquals(3, query.variableName("eventCounter").singleResult().getTypedValue());
   }
 
   @Deployment(resources = {"org/camunda/bpm/engine/test/cmmn/listener/CaseInstanceListenerTest.testDoesNotImplementCaseExecutionListenerInterfaceByClass.cmmn"})

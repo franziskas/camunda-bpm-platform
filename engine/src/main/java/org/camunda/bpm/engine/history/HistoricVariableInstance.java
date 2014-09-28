@@ -12,8 +12,6 @@
  */
 package org.camunda.bpm.engine.history;
 
-import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
-
 /**
  * A single process variable containing the last value when its process instance has finished.
  * It is only available when HISTORY_LEVEL is set >= VARIABLE
@@ -21,7 +19,7 @@ import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
  * @author Christian Lipphardt (camunda)
  * @author ruecker
  */
-public interface HistoricVariableInstance extends PersistentVariableInstance {
+public interface HistoricVariableInstance {
 
   /**
    * @return the Id of this variable instance
@@ -29,7 +27,7 @@ public interface HistoricVariableInstance extends PersistentVariableInstance {
   String getId();
 
   /**
-   * Returns the name of <code>this</code> variable instance.
+   * Returns the name of this variable instance.
    *
    * <p>Deprecated since 7.2: use {@link #getName()} instead.</p>
    *
@@ -38,9 +36,9 @@ public interface HistoricVariableInstance extends PersistentVariableInstance {
   String getVariableName();
 
   /**
-   * <p>Returns the name of the type of <code>this</code> variable instance</p>
+   * <p>Returns the name of the type of this variable instance</p>
    *
-   * <p>Deprecated since 7.2: use {@link #getTypeName()} instead.</p>
+   * <p>Deprecated since 7.2: use {@link #getSerializerName()} instead.</p>
    *
    */
   @Deprecated
@@ -61,4 +59,15 @@ public interface HistoricVariableInstance extends PersistentVariableInstance {
    * Returns the corresponding activity instance id.
    */
   String getActivityInstanceId();
+
+  /**
+   * Returns the value of this variable instance.
+   */
+  Object getValue();
+
+  /**
+   * If the variable value could not be loaded, this returns the error message.
+   * @return an error message indicating why the variable value could not be loaded.
+   */
+  String getErrorMessage();
 }

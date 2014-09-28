@@ -16,18 +16,22 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.impl.context.Context;
+import org.camunda.bpm.engine.impl.core.variable.CoreVariableInstance;
+import org.camunda.bpm.engine.impl.core.variable.value.UntypedVariableValueImpl;
 import org.camunda.bpm.engine.impl.db.DbEntity;
 import org.camunda.bpm.engine.impl.db.HasDbRevision;
-import org.camunda.bpm.engine.impl.variable.ValueFields;
-import org.camunda.bpm.engine.impl.variable.VariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueFields;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.VariableValueSerializers;
 import org.camunda.bpm.engine.runtime.VariableInstance;
+import org.camunda.bpm.engine.variable.value.VariableValue;
 
 /**
  * @author Tom Baeyens
  */
-public class VariableInstanceEntity implements VariableInstance, ValueFields, DbEntity, HasDbRevision, Serializable {
+public class VariableInstanceEntity implements VariableInstance, CoreVariableInstance, ValueFields, DbEntity, HasDbRevision, Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -51,9 +55,10 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
   protected ByteArrayEntity byteArrayValue;
   protected String byteArrayValueId;
 
-  protected Object cachedValue;
+  protected VariableValue cachedValue;
 
-  protected VariableType type;
+  /** the name of the serializer used to serialize the value of this variable */
+  protected String serializerName;
 
   boolean forcedUpdate;
 
@@ -62,14 +67,12 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
   protected String dataFormatId;
   protected String configuration;
 
-  protected String typeName;
-
   // Default constructor for SQL mapping
   public VariableInstanceEntity() {
   }
 
-  public static VariableInstanceEntity createAndInsert(String name, VariableType type, Object value) {
-    VariableInstanceEntity variableInstance = create(name, type, value);
+  public static VariableInstanceEntity createAndInsert(String name, VariableValue value) {
+    VariableInstanceEntity variableInstance = create(name, value);
     insert(variableInstance);
 
     return variableInstance;
@@ -82,21 +85,10 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     .insert(variableInstance);
   }
 
-  public static VariableInstanceEntity create(String name, VariableType type, Object value) {
+  public static VariableInstanceEntity create(String name, VariableValue value) {
     VariableInstanceEntity variableInstance = new VariableInstanceEntity();
     variableInstance.name = name;
-    variableInstance.setType(type);
     variableInstance.setValue(value);
-
-    return variableInstance;
-  }
-
-  public static VariableInstanceEntity createFromSerializedValue(String name, VariableType type,
-      Object value, Map<String, Object> configuration) {
-    VariableInstanceEntity variableInstance = new VariableInstanceEntity();
-    variableInstance.name = name;
-    variableInstance.setType(type);
-    variableInstance.setValueFromSerialized(value, configuration);
 
     return variableInstance;
   }
@@ -108,19 +100,21 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
   }
 
   public void delete() {
+
+    // clear value
+    clearValueFields();
+
     // delete variable
     Context
       .getCommandContext()
       .getDbEntityManager()
       .delete(this);
-
-    deleteByteArrayValue();
   }
 
   public Object getPersistentState() {
     Map<String, Object> persistentState = new HashMap<String, Object>();
-    if (type != null) {
-      persistentState.put("type", type);
+    if (serializerName != null) {
+      persistentState.put("serializerName", serializerName);
     }
     if (longValue != null) {
       persistentState.put("longValue", longValue);
@@ -232,25 +226,21 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     }
   }
 
-  public void clear() {
-    if (byteArrayValueId == null) {
-      // reset the current value temporarily to null
-      setValue(null);
-    } else {
-      // the type has changed from (SerializableType||ByteArrayType) -> another type:
-      // the next apparently useless line is probably to ensure consistency in the DbSqlSession
-      // cache, but should be checked and docced here (or removed if it turns out to be unnecessary)
-      deleteByteArrayValue();
-      setByteArrayValueId(null);
-    }
-  }
-
   // type /////////////////////////////////////////////////////////////////////
 
   public Object getValue() {
-    if (errorMessage == null && (!getType().isCachable() || cachedValue==null)) {
+    VariableValue variableValue = getTypedValue();
+    if(variableValue != null) {
+      return variableValue.getValue();
+    } else {
+      return null;
+    }
+  }
+
+  public VariableValue getTypedValue() {
+    if (errorMessage == null && cachedValue == null) {
       try {
-        cachedValue = getType().getValue(this);
+        cachedValue = getSerializer().getValue(this);
 
       } catch(RuntimeException e) {
         // catch error message
@@ -263,22 +253,58 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     return cachedValue;
   }
 
-  public void setValue(Object value) {
-    getType().setValue(value, this);
-    cachedValue = value;
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public VariableValue setValue(VariableValue variableValue) {
+
+    ValueSerializer serializer = null;
+
+    if(serializerName != null) {
+      ValueSerializer<?> currentSerializer = getSerializer();
+
+      // check whether the current serializer can candle the new value
+      if(currentSerializer.canSerialize(variableValue)) {
+        serializer = currentSerializer;
+      }
+    }
+
+    // if the current serializer cannot handle the value, attempt to determine a new serializer
+    if(serializer == null) {
+      serializer = getSerializers().findSerializerForValue(variableValue);
+      // serializer changed -> clear value fields
+      clearValueFields();
+    }
+
+    // set new value
+    serializer.setValue(variableValue, this);
+
+    if(variableValue instanceof UntypedVariableValueImpl) {
+      // type has been detected
+      variableValue = serializer.getValue(this);
+    }
+
+    return variableValue;
   }
 
-  public void setValueFromSerialized(Object value, Map<String, Object> configuration) {
-    type.setValueFromSerialized(value, configuration, this);
-    cachedValue = null;
+  public void clearValueFields() {
+    this.longValue = null;
+    this.doubleValue = null;
+    this.textValue = null;
+    this.textValue2 = null;
+
+    if(this.byteArrayValueId != null) {
+      deleteByteArrayValue();
+      setByteArrayValueId(null);
+    }
   }
 
-  public boolean isAbleToStore(Object value) {
-    return getType().isAbleToStore(value);
-  }
-
-  public boolean isAbleToStoreSerializedValue(Object value, Map<String, Object> configuration) {
-    return type.isAbleToStoreSerializedValue(value, configuration);
+  public String getTypeName() {
+    VariableValue typedValue = getTypedValue();
+    if(typedValue != null) {
+      return typedValue.getType().getName();
+    }
+    else {
+      return null;
+    }
   }
 
   // getters and setters //////////////////////////////////////////////////////
@@ -347,33 +373,36 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     this.revision = revision;
   }
 
-  public void setType(VariableType type) {
-    this.type = type;
-    this.typeName = type.getTypeName();
+  public void setSerializer(ValueSerializer<?> serializer) {
+    this.serializerName = serializer.getName();
   }
 
-  public void setTypeName(String type) {
-    this.typeName = type;
+  public void setSerializerName(String type) {
+    this.serializerName = type;
   }
 
-  public VariableType getType() {
-    ensureTypeInitialized();
-    return type;
-  }
-
-  protected void ensureTypeInitialized() {
-    if(type == null && typeName != null) {
-      type = Context.getProcessEngineConfiguration()
-          .getVariableTypes()
-          .getVariableType(typeName);
+  public ValueSerializer<?> getSerializer() {
+    if(serializerName != null) {
+      return getSerializers().getSerializerByName(serializerName);
+    } else {
+      throw new ProcessEngineException("No serializer defined for this variable instance");
     }
   }
 
-  public Object getCachedValue() {
+  public static VariableValueSerializers getSerializers() {
+    if(Context.getCommandContext() != null) {
+      return Context.getProcessEngineConfiguration()
+          .getVariableTypes();
+    } else {
+      throw new ProcessEngineException("Cannot work with serializers outside of command context.");
+    }
+  }
+
+  public VariableValue getCachedValue() {
     return cachedValue;
   }
 
-  public void setCachedValue(Object cachedValue) {
+  public void setCachedValue(VariableValue cachedValue) {
     this.cachedValue = cachedValue;
   }
 
@@ -401,8 +430,8 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     this.activityInstanceId = acitivtyInstanceId;
   }
 
-  public String getTypeName() {
-    return typeName;
+  public String getSerializerName() {
+    return serializerName;
   }
 
   public String getErrorMessage() {
@@ -427,18 +456,6 @@ public class VariableInstanceEntity implements VariableInstance, ValueFields, Db
     }
 
     return caseExecutionId;
-  }
-
-  public SerializedVariableValue getSerializedValue() {
-    return type.getSerializedValue(this);
-  }
-
-  public String getValueTypeName() {
-    return type.getTypeNameForValue(this);
-  }
-
-  public boolean storesCustomObjects() {
-    return type.storesCustomObjects();
   }
 
   @Override

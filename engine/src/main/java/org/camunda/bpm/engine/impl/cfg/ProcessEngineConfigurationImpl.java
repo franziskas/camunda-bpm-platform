@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
@@ -61,7 +62,6 @@ import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
 import org.camunda.bpm.engine.impl.AuthorizationServiceImpl;
 import org.camunda.bpm.engine.impl.DefaultArtifactFactory;
 import org.camunda.bpm.engine.impl.FilterServiceImpl;
@@ -205,26 +205,27 @@ import org.camunda.bpm.engine.impl.scripting.env.ScriptingEnvironment;
 import org.camunda.bpm.engine.impl.spin.ProcessEngineSpinSupport;
 import org.camunda.bpm.engine.impl.util.IoUtil;
 import org.camunda.bpm.engine.impl.util.ReflectUtil;
-import org.camunda.bpm.engine.impl.variable.BooleanType;
-import org.camunda.bpm.engine.impl.variable.ByteArrayType;
-import org.camunda.bpm.engine.impl.variable.DateType;
-import org.camunda.bpm.engine.impl.variable.DefaultVariableTypes;
-import org.camunda.bpm.engine.impl.variable.DeserializedObjectsSessionFactory;
-import org.camunda.bpm.engine.impl.variable.DoubleType;
-import org.camunda.bpm.engine.impl.variable.EntityManagerSession;
-import org.camunda.bpm.engine.impl.variable.EntityManagerSessionFactory;
-import org.camunda.bpm.engine.impl.variable.IntegerType;
-import org.camunda.bpm.engine.impl.variable.JPAEntityVariableType;
-import org.camunda.bpm.engine.impl.variable.LongType;
-import org.camunda.bpm.engine.impl.variable.NullType;
-import org.camunda.bpm.engine.impl.variable.SerializableType;
-import org.camunda.bpm.engine.impl.variable.SerializableTypeResolver;
-import org.camunda.bpm.engine.impl.variable.SerializationVariableTypeResolver;
-import org.camunda.bpm.engine.impl.variable.ShortType;
-import org.camunda.bpm.engine.impl.variable.StringType;
-import org.camunda.bpm.engine.impl.variable.VariableType;
-import org.camunda.bpm.engine.impl.variable.VariableTypes;
+import org.camunda.bpm.engine.impl.variable.deprecated.EntityManagerSession;
+import org.camunda.bpm.engine.impl.variable.deprecated.EntityManagerSessionFactory;
+import org.camunda.bpm.engine.impl.variable.deprecated.JPAEntityVariableType;
+import org.camunda.bpm.engine.impl.variable.serializer.BooleanValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.ByteArrayValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.DateValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.DefaultVariableSerializers;
+import org.camunda.bpm.engine.impl.variable.serializer.DeserializedObjectsSessionFactory;
+import org.camunda.bpm.engine.impl.variable.serializer.DoubleValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.IntegerValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.LongValueSerlializer;
+import org.camunda.bpm.engine.impl.variable.serializer.NullType;
+import org.camunda.bpm.engine.impl.variable.serializer.JavaObjectSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.SerializableTypeResolver;
+import org.camunda.bpm.engine.impl.variable.serializer.SerializationVariableTypeResolver;
+import org.camunda.bpm.engine.impl.variable.serializer.ShortValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.StringValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.ValueSerializer;
+import org.camunda.bpm.engine.impl.variable.serializer.VariableValueSerializers;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
+import org.camunda.bpm.engine.variable.VariableType;
 
 
 /**
@@ -328,9 +329,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected FormValidators formValidators;
   protected Map<String, Class<? extends FormFieldValidator>> customFormFieldValidators;
 
-  protected List<VariableType> customPreVariableTypes;
-  protected List<VariableType> customPostVariableTypes;
-  protected VariableTypes variableTypes;
+  protected List<ValueSerializer> customPreVariableTypes;
+  protected List<ValueSerializer> customPostVariableTypes;
+  protected VariableValueSerializers variableValueSerializers;
   protected String defaultSerializationFormat;
 
   protected ExpressionManager expressionManager;
@@ -790,7 +791,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
         XMLConfigBuilder parser = new XMLConfigBuilder(reader,"", properties);
         Configuration configuration = parser.getConfiguration();
         configuration.setEnvironment(environment);
-        configuration.getTypeHandlerRegistry().register(VariableType.class, JdbcType.VARCHAR, new IbatisVariableTypeHandler());
+        configuration.getTypeHandlerRegistry().register(ValueSerializer.class, JdbcType.VARCHAR, new IbatisVariableTypeHandler());
         configuration = parser.parse();
 
         sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
@@ -1114,26 +1115,26 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   protected void initVariableTypes() {
-    if (variableTypes==null) {
-      variableTypes = new DefaultVariableTypes();
+    if (variableValueSerializers==null) {
+      variableValueSerializers = new DefaultVariableSerializers();
       if (customPreVariableTypes!=null) {
-        for (VariableType customVariableType: customPreVariableTypes) {
-          variableTypes.addType(customVariableType);
+        for (ValueSerializer customVariableType: customPreVariableTypes) {
+          variableValueSerializers.addType(customVariableType);
         }
       }
-      variableTypes.addType(new NullType());
-      variableTypes.addType(new StringType());
-      variableTypes.addType(new BooleanType());
-      variableTypes.addType(new ShortType());
-      variableTypes.addType(new IntegerType());
-      variableTypes.addType(new LongType());
-      variableTypes.addType(new DateType());
-      variableTypes.addType(new DoubleType());
-      variableTypes.addType(new ByteArrayType());
+      variableValueSerializers.addType(new NullType());
+      variableValueSerializers.addType(new StringValueSerializer());
+      variableValueSerializers.addType(new BooleanValueSerializer());
+      variableValueSerializers.addType(new ShortValueSerializer());
+      variableValueSerializers.addType(new IntegerValueSerializer());
+      variableValueSerializers.addType(new LongValueSerlializer());
+      variableValueSerializers.addType(new DateValueSerializer());
+      variableValueSerializers.addType(new DoubleValueSerializer());
+      variableValueSerializers.addType(new ByteArrayValueSerializer());
 
       if (defaultSerializationFormat != null) {
         defaultSerializationFormat = defaultSerializationFormat.trim();
-        VariableType serializationType = null;
+        ValueSerializer serializationType = null;
 
         for (SerializationVariableTypeResolver resolver : serializationTypeResolvers) {
           serializationType = resolver.getTypeForSerializationFormat(defaultSerializationFormat);
@@ -1143,24 +1144,24 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
         }
 
         if (serializationType != null) {
-          variableTypes.addType(serializationType);
+          variableValueSerializers.addType(serializationType);
         } else {
           throw new ProcessEngineException("Cannot find a VariableType that serializes objects"
               + " for the default format '" + defaultSerializationFormat + "'");
         }
       } else {
-        variableTypes.addType(new SerializableType());
+        variableValueSerializers.addType(new JavaObjectSerializer());
         if(ProcessEngineSpinSupport.isSpinAvailable()) {
-          VariableType spinVariableType = ProcessEngineSpinSupport
+          ValueSerializer spinVariableType = ProcessEngineSpinSupport
             .getVariableTypeResolver()
             .getTypeForSerializationFormat("application/json; implementation=tree");
-          variableTypes.addType(spinVariableType);
+          variableValueSerializers.addType(spinVariableType);
         }
       }
 
       if (customPostVariableTypes!=null) {
-        for (VariableType customVariableType: customPostVariableTypes) {
-          variableTypes.addType(customVariableType);
+        for (ValueSerializer customVariableType: customPostVariableTypes) {
+          variableValueSerializers.addType(customVariableType);
         }
       }
     }
@@ -1318,15 +1319,15 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     }
     if(jpaEntityManagerFactory!=null) {
       sessionFactories.put(EntityManagerSession.class, new EntityManagerSessionFactory(jpaEntityManagerFactory, jpaHandleTransaction, jpaCloseEntityManager));
-      VariableType jpaType = variableTypes.getVariableType(ProcessEngineVariableType.JPA.getName());
+      ValueSerializer jpaType = variableValueSerializers.getHandlerByName(VariableType.JPA.getName());
       // Add JPA-type
       if(jpaType == null) {
         // We try adding the variable right before SerializableType, if available
-        int serializableIndex = variableTypes.getTypeIndex(ProcessEngineVariableType.SERIALIZABLE.getName());
+        int serializableIndex = variableValueSerializers.getHandlerIndex(VariableType.SERIALIZABLE.getName());
         if(serializableIndex > -1) {
-          variableTypes.addType(new JPAEntityVariableType(), serializableIndex);
+          variableValueSerializers.addSerializer(new JPAEntityVariableType(), serializableIndex);
         } else {
-          variableTypes.addType(new JPAEntityVariableType());
+          variableValueSerializers.addType(new JPAEntityVariableType());
         }
       }
     }
@@ -1641,12 +1642,12 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return this;
   }
 
-  public VariableTypes getVariableTypes() {
-    return variableTypes;
+  public VariableValueSerializers getVariableTypes() {
+    return variableValueSerializers;
   }
 
-  public ProcessEngineConfigurationImpl setVariableTypes(VariableTypes variableTypes) {
-    this.variableTypes = variableTypes;
+  public ProcessEngineConfigurationImpl setVariableTypes(VariableValueSerializers variableValueSerializers) {
+    this.variableValueSerializers = variableValueSerializers;
     return this;
   }
 
@@ -1797,23 +1798,23 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return this;
   }
 
-  public List<VariableType> getCustomPreVariableTypes() {
+  public List<ValueSerializer> getCustomPreVariableTypes() {
     return customPreVariableTypes;
   }
 
 
-  public ProcessEngineConfigurationImpl setCustomPreVariableTypes(List<VariableType> customPreVariableTypes) {
+  public ProcessEngineConfigurationImpl setCustomPreVariableTypes(List<ValueSerializer> customPreVariableTypes) {
     this.customPreVariableTypes = customPreVariableTypes;
     return this;
   }
 
 
-  public List<VariableType> getCustomPostVariableTypes() {
+  public List<ValueSerializer> getCustomPostVariableTypes() {
     return customPostVariableTypes;
   }
 
 
-  public ProcessEngineConfigurationImpl setCustomPostVariableTypes(List<VariableType> customPostVariableTypes) {
+  public ProcessEngineConfigurationImpl setCustomPostVariableTypes(List<ValueSerializer> customPostVariableTypes) {
     this.customPostVariableTypes = customPostVariableTypes;
     return this;
   }

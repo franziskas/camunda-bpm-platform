@@ -13,7 +13,7 @@
 package org.camunda.bpm.engine.test.examples.variables;
 
 import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.junit.Assert;
 
 /**
@@ -26,12 +26,12 @@ public class VariableAssertionUtil {
    * Assumes that value and serialized value are equal for the supplied type.
    */
   public static void assertVariableHasValueAndType(PersistentVariableInstance variableInstance, Object value, String type) {
-    Assert.assertEquals(type, variableInstance.getTypeName());
-    Assert.assertEquals(value, variableInstance.getValue());
+    Assert.assertEquals(type, variableInstance.getSerializerName());
+    Assert.assertEquals(value, variableInstance.getTypedValue());
 
-    SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+    SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
     Assert.assertNotNull(serializedValue);
-    Assert.assertEquals(value, serializedValue.getValue());
+    Assert.assertEquals(value, serializedValue.getTypedValue());
   }
 
 }

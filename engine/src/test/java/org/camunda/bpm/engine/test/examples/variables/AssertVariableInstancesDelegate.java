@@ -17,7 +17,7 @@ import java.util.Map;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
+import org.camunda.bpm.engine.variable.VariableType;
 import org.junit.Assert;
 
 /**
@@ -37,8 +37,8 @@ public class AssertVariableInstancesDelegate implements JavaDelegate {
     PersistentVariableInstance intVariable = variableInstances.get("anIntegerVariable");
     PersistentVariableInstance stringVariable = variableInstances.get("aStringVariable");
 
-    VariableAssertionUtil.assertVariableHasValueAndType(intVariable, 1234, ProcessEngineVariableType.INTEGER.getName());
-    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", ProcessEngineVariableType.STRING.getName());
+    VariableAssertionUtil.assertVariableHasValueAndType(intVariable, 1234, VariableType.INTEGER.getName());
+    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", VariableType.STRING.getName());
 
     // getVariableInstancesLocal()
     variableInstances = execution.getVariableInstancesLocal();
@@ -47,19 +47,19 @@ public class AssertVariableInstancesDelegate implements JavaDelegate {
 
     stringVariable = variableInstances.get("aStringVariable");
 
-    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", ProcessEngineVariableType.STRING.getName());
+    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", VariableType.STRING.getName());
 
     // getVariableInstance(name)
     intVariable = execution.getVariableInstance("anIntegerVariable");
 
     Assert.assertNotNull(intVariable);
-    VariableAssertionUtil.assertVariableHasValueAndType(intVariable, 1234, ProcessEngineVariableType.INTEGER.getName());
+    VariableAssertionUtil.assertVariableHasValueAndType(intVariable, 1234, VariableType.INTEGER.getName());
 
     // getVariableInstanceLocal(name)
     stringVariable = execution.getVariableInstanceLocal("aStringVariable");
 
     Assert.assertNotNull(stringVariable);
-    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", ProcessEngineVariableType.STRING.getName());
+    VariableAssertionUtil.assertVariableHasValueAndType(stringVariable, "aStringValue", VariableType.STRING.getName());
 
     intVariable = execution.getVariableInstanceLocal("anIntegerVariable");
     Assert.assertNull(intVariable);

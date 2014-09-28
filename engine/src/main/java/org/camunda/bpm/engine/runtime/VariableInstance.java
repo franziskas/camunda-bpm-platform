@@ -12,7 +12,7 @@
  */
 package org.camunda.bpm.engine.runtime;
 
-import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
+import org.camunda.bpm.engine.variable.value.VariableValue;
 
 /**
  * A {@link VariableInstance} represents a variable in the execution of
@@ -21,12 +21,37 @@ import org.camunda.bpm.engine.delegate.PersistentVariableInstance;
  * @author roman.smirnov
  *
  */
-public interface VariableInstance extends PersistentVariableInstance {
+public interface VariableInstance {
 
   /**
    * @return the Id of this variable instance
    */
   String getId();
+
+  /**
+   * Returns the name of this variable instance.
+   */
+  String getName();
+
+  /**
+   * Returns the name of the type of this variable instance
+   *
+   * Deprecated: use {@code getTypedValue().getType()}
+   *
+   * @return the type name of the variable
+   */
+  @Deprecated
+  String getTypeName();
+
+  /**
+   * Returns the value of this variable instance.
+   */
+  Object getValue();
+
+  /**
+   * Returns the value of this variable instance.
+   */
+  VariableValue getTypedValue();
 
   /**
    * Returns the corresponding process instance id.
@@ -39,16 +64,6 @@ public interface VariableInstance extends PersistentVariableInstance {
   String getExecutionId();
 
   /**
-   * Returns the corresponding case instance id.
-   */
-  String getCaseInstanceId();
-
-  /**
-   * Returns the corresponding case execution id.
-   */
-  String getCaseExecutionId();
-
-  /**
    * Returns the corresponding task id.
    */
   String getTaskId();
@@ -57,5 +72,11 @@ public interface VariableInstance extends PersistentVariableInstance {
    * Returns the corresponding activity instance id.
    */
   String getActivityInstanceId();
+
+  /**
+   * If the variable value could not be loaded, this returns the error message.
+   * @return an error message indicating why the variable value could not be loaded.
+   */
+  String getErrorMessage();
 
 }

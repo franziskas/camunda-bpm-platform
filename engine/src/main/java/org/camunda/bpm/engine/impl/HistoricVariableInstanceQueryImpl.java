@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
 import org.camunda.bpm.engine.history.HistoricVariableInstance;
 import org.camunda.bpm.engine.history.HistoricVariableInstanceQuery;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
-import org.camunda.bpm.engine.impl.variable.VariableTypes;
+import org.camunda.bpm.engine.impl.variable.serializer.VariableValueSerializers;
+import org.camunda.bpm.engine.variable.VariableType;
 
 import static org.camunda.bpm.engine.impl.util.EnsureUtil.ensureNotNull;
 
@@ -112,8 +112,8 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
 
   protected void ensureVariablesInitialized() {
     if (this.queryVariableValue != null) {
-      VariableTypes variableTypes = Context.getProcessEngineConfiguration().getVariableTypes();
-      queryVariableValue.initialize(variableTypes);
+      VariableValueSerializers variableValueSerializers = Context.getProcessEngineConfiguration().getVariableTypes();
+      queryVariableValue.initialize(variableValueSerializers);
     }
   }
 
@@ -150,7 +150,7 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
             variableInstanceEntity.getSerializedValue();
 
             if (shouldFetchValueFor(variableInstanceEntity)) {
-              variableInstanceEntity.getValue();
+              variableInstanceEntity.getVariableValue();
             }
 
           } catch(Exception t) {
@@ -179,7 +179,7 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
    * binary fetching disabled
    */
   protected boolean shouldFetchSerializedValueFor(HistoricVariableInstanceEntity variableInstance) {
-    boolean shouldFetchBytes = !ProcessEngineVariableType.BYTES.getName().equals(variableInstance.getVariableType().getTypeName())
+    boolean shouldFetchBytes = !VariableType.BYTES.getName().equals(variableInstance.getVariableType().getSerializerName())
         || isByteArrayFetchingEnabled;
 
     return shouldFetchBytes;

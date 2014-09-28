@@ -625,10 +625,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -679,10 +679,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("myVariable".equals(name)) {
         assertEquals("myVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("myAnotherVariable".equals(name)) {
         assertEquals("myAnotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -733,7 +733,7 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
         fail("Found an unexpected variable: '"+name+"'");
       }
 
-      assertNull(variable.getValue());
+      assertNull(variable.getTypedValue());
     }
 
     // complete ////////////////////////////////////////////////////////
@@ -780,10 +780,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals((long) 1000, variable.getValue());
+        assertEquals((long) 1000, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -833,10 +833,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -888,10 +888,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals((long) 1000, variable.getValue());
+        assertEquals((long) 1000, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1004,10 +1004,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1059,10 +1059,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("myVariable".equals(name)) {
         assertEquals("myVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("myAnotherVariable".equals(name)) {
         assertEquals("myAnotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1113,7 +1113,7 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
         fail("Found an unexpected variable: '"+name+"'");
       }
 
-      assertNull(variable.getValue());
+      assertNull(variable.getTypedValue());
     }
 
     // complete ////////////////////////////////////////////////////////
@@ -1162,10 +1162,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals((long) 1000, variable.getValue());
+        assertEquals((long) 1000, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1217,10 +1217,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1272,10 +1272,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals((long) 1000, variable.getValue());
+        assertEquals((long) 1000, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }
@@ -1376,10 +1376,10 @@ public class ProcessTaskTest extends PluggableProcessEngineTestCase {
       String name = variable.getName();
       if ("aVariable".equals(name)) {
         assertEquals("aVariable", name);
-        assertEquals("abc", variable.getValue());
+        assertEquals("abc", variable.getTypedValue());
       } else if ("anotherVariable".equals(name)) {
         assertEquals("anotherVariable", name);
-        assertEquals(999, variable.getValue());
+        assertEquals(999, variable.getTypedValue());
       } else {
         fail("Found an unexpected variable: '"+name+"'");
       }

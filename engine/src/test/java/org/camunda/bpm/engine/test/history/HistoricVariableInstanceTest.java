@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.ProcessEngineException;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
@@ -471,7 +471,7 @@ public class HistoricVariableInstanceTest extends AbstractProcessEngineTestCase 
       .variableName(variableName)
       .singleResult();
 
-    assertNotNull(variableInstance.getValue());
+    assertNotNull(variableInstance.getTypedValue());
 
     taskService.deleteTask(newTask.getId(), true);
   }
@@ -489,7 +489,7 @@ public class HistoricVariableInstanceTest extends AbstractProcessEngineTestCase 
       .disableBinaryFetching()
       .singleResult();
 
-    assertNull(variableInstance.getValue());
+    assertNull(variableInstance.getTypedValue());
 
     taskService.deleteTask(newTask.getId(), true);
   }
@@ -516,17 +516,17 @@ public class HistoricVariableInstanceTest extends AbstractProcessEngineTestCase 
       if(variableInstance.getName().equals("customSerializable")) {
         assertNull(variableInstance.getErrorMessage());
 
-        SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
       if(variableInstance.getName().equals("failingSerializable")) {
         // no error message is present
         assertNull(variableInstance.getErrorMessage());
 
-        SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
     }
 
@@ -546,7 +546,7 @@ public class HistoricVariableInstanceTest extends AbstractProcessEngineTestCase 
       .variableName(variableName)
       .singleResult();
 
-    assertNull(variableInstance.getValue());
+    assertNull(variableInstance.getTypedValue());
     assertNotNull(variableInstance.getErrorMessage());
 
     taskService.deleteTask(newTask.getId(), true);

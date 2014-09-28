@@ -81,7 +81,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
     VariableInstance variableFoo = runtimeService.createVariableInstanceQuery().singleResult();
     assertNotNull(variableFoo);
     assertEquals("foo", variableFoo.getName());
-    assertEquals("bar", variableFoo.getValue());
+    assertEquals("bar", variableFoo.getTypedValue());
 
     assertEquals(1, runtimeService.createProcessInstanceQuery().count());
 
@@ -99,7 +99,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
       HistoricVariableInstance variable = historyService.createHistoricVariableInstanceQuery().singleResult();
       assertNotNull(variable);
       assertEquals("foo", variable.getVariableName());
-      assertEquals("bar", variable.getValue());
+      assertEquals("bar", variable.getTypedValue());
       assertEquals(processInstanceId, variable.getActivityInstanceId());
 
       if(processEngineConfiguration.getHistoryLevel() > ProcessEngineConfigurationImpl.HISTORYLEVEL_AUDIT) {
@@ -151,7 +151,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
     VariableInstance variableFoo = runtimeService.createVariableInstanceQuery().singleResult();
     assertNotNull(variableFoo);
     assertEquals("foo", variableFoo.getName());
-    assertEquals("bar", variableFoo.getValue());
+    assertEquals("bar", variableFoo.getTypedValue());
 
     assertEquals(1, runtimeService.createProcessInstanceQuery().count());
 
@@ -174,7 +174,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
       HistoricVariableInstance variable = historyService.createHistoricVariableInstanceQuery().singleResult();
       assertNotNull(variable);
       assertEquals("foo", variable.getVariableName());
-      assertEquals("bar", variable.getValue());
+      assertEquals("bar", variable.getTypedValue());
       assertEquals(processInstanceId, variable.getActivityInstanceId());
 
       if(processEngineConfiguration.getHistoryLevel() > ProcessEngineConfigurationImpl.HISTORYLEVEL_AUDIT) {
@@ -231,7 +231,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
     VariableInstance variableFoo = runtimeService.createVariableInstanceQuery().singleResult();
     assertNotNull(variableFoo);
     assertEquals("foo", variableFoo.getName());
-    assertEquals("bar", variableFoo.getValue());
+    assertEquals("bar", variableFoo.getTypedValue());
 
     assertEquals(1, runtimeService.createProcessInstanceQuery().count());
 
@@ -254,7 +254,7 @@ public class AsyncStartEventTest extends PluggableProcessEngineTestCase {
       HistoricVariableInstance variable = historyService.createHistoricVariableInstanceQuery().singleResult();
       assertNotNull(variable);
       assertEquals("foo", variable.getVariableName());
-      assertEquals("bar", variable.getValue());
+      assertEquals("bar", variable.getTypedValue());
       assertEquals(processInstanceId, variable.getActivityInstanceId());
 
       if(processEngineConfiguration.getHistoryLevel() > ProcessEngineConfigurationImpl.HISTORYLEVEL_AUDIT) {

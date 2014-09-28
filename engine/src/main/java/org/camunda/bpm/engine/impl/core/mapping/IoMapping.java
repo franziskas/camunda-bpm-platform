@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.camunda.bpm.engine.impl.core.variable.CoreVariableScope;
+import org.camunda.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
 
 /**
  * Maps variables in and out of a variable scope.
@@ -30,13 +30,13 @@ public class IoMapping {
 
   protected List<OutputParameter> outputParameters;
 
-  public void executeInputParameters(CoreVariableScope<?> variableScope) {
+  public void executeInputParameters(AbstractVariableScope variableScope) {
     for (InputParameter inputParameter : getInputParameters()) {
       inputParameter.execute(variableScope);
     }
   }
 
-  public void executeOutputParameters(CoreVariableScope<?> variableScope) {
+  public void executeOutputParameters(AbstractVariableScope variableScope) {
     for (OutputParameter outputParameter : getOutputParameters()) {
       outputParameter.execute(variableScope);
     }

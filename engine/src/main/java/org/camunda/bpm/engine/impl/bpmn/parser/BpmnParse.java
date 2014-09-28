@@ -130,7 +130,7 @@ import org.camunda.bpm.engine.impl.util.ResourceUtil;
 import org.camunda.bpm.engine.impl.util.StringUtil;
 import org.camunda.bpm.engine.impl.util.xml.Element;
 import org.camunda.bpm.engine.impl.util.xml.Parse;
-import org.camunda.bpm.engine.impl.variable.VariableDeclaration;
+import org.camunda.bpm.engine.impl.variable.deprecated.VariableDeclaration;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 
 /**

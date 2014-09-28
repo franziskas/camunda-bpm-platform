@@ -13,8 +13,6 @@
 
 package org.camunda.bpm.engine.history;
 
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
-
 /** Update of a process variable.  This is only available if history
  * level is configured to FULL.
  *
@@ -25,8 +23,6 @@ public interface HistoricVariableUpdate extends HistoricDetail {
   String getVariableName();
   String getVariableTypeName();
   Object getValue();
-  String getValueTypeName();
-  boolean storesCustomObjects();
   int getRevision();
 
   /**
@@ -34,6 +30,4 @@ public interface HistoricVariableUpdate extends HistoricDetail {
    * @return an error message indicating why the variable value could not be loaded.
    */
   String getErrorMessage();
-
-  SerializedVariableValue getSerializedValue();
 }

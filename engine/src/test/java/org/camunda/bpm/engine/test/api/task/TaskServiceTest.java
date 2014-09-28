@@ -29,8 +29,7 @@ import java.util.Set;
 import org.camunda.bpm.engine.OptimisticLockingException;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.TaskAlreadyClaimedException;
-import org.camunda.bpm.engine.delegate.ProcessEngineVariableType;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.identity.Group;
@@ -52,6 +51,7 @@ import org.camunda.bpm.engine.task.IdentityLink;
 import org.camunda.bpm.engine.task.IdentityLinkType;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.variable.VariableType;
 
 /**
  * @author Frederik Heremans
@@ -1616,19 +1616,19 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
     Task task = taskService.createTaskQuery().singleResult();
     assertNotNull(task);
 
-    taskService.setVariableFromSerialized(task.getId(), "aVar", "aValue", ProcessEngineVariableType.STRING.getName(), null);
+    taskService.setVariableFromSerialized(task.getId(), "aVar", "aValue", VariableType.STRING.getName(), null);
 
     VariableInstance variableInstance =
         runtimeService.createVariableInstanceQuery().processInstanceIdIn(processInstance.getId()).singleResult();
 
     assertNotNull(variableInstance);
     assertEquals("aVar", variableInstance.getName());
-    assertEquals("aValue", variableInstance.getValue());
-    assertEquals(ProcessEngineVariableType.STRING.getName(), variableInstance.getTypeName());
+    assertEquals("aValue", variableInstance.getTypedValue());
+    assertEquals(VariableType.STRING.getName(), variableInstance.getSerializerName());
 
-    SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+    SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
     assertNotNull(serializedValue);
-    assertEquals("aValue", serializedValue.getValue());
+    assertEquals("aValue", serializedValue.getTypedValue());
     assertTrue(serializedValue.getConfig().isEmpty());
 
     variableInstance =
@@ -1646,7 +1646,7 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
     Task task = taskService.createTaskQuery().singleResult();
     assertNotNull(task);
 
-    taskService.setVariableLocalFromSerialized(task.getId(), "aVar", "aValue", ProcessEngineVariableType.STRING.getName(), null);
+    taskService.setVariableLocalFromSerialized(task.getId(), "aVar", "aValue", VariableType.STRING.getName(), null);
 
     VariableInstance variableInstance =
         runtimeService.createVariableInstanceQuery().processInstanceIdIn(processInstance.getId()).singleResult();
@@ -1658,12 +1658,12 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
 
     assertNotNull(variableInstance);
     assertEquals("aVar", variableInstance.getName());
-    assertEquals("aValue", variableInstance.getValue());
-    assertEquals(ProcessEngineVariableType.STRING.getName(), variableInstance.getTypeName());
+    assertEquals("aValue", variableInstance.getTypedValue());
+    assertEquals(VariableType.STRING.getName(), variableInstance.getSerializerName());
 
-    SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+    SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
     assertNotNull(serializedValue);
-    assertEquals("aValue", serializedValue.getValue());
+    assertEquals("aValue", serializedValue.getTypedValue());
     assertTrue(serializedValue.getConfig().isEmpty());
   }
 
@@ -1674,14 +1674,14 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
     Task task = taskService.createTaskQuery().singleResult();
 
     try {
-      taskService.setVariableFromSerialized(task.getId(), null, "aValue", ProcessEngineVariableType.STRING.getName(), null);
+      taskService.setVariableFromSerialized(task.getId(), null, "aValue", VariableType.STRING.getName(), null);
       fail("Should not allow to set task variable without name");
     } catch (ProcessEngineException e) {
       // expected
     }
 
     try {
-      taskService.setVariableLocalFromSerialized(task.getId(), null, "aValue", ProcessEngineVariableType.STRING.getName(), null);
+      taskService.setVariableLocalFromSerialized(task.getId(), null, "aValue", VariableType.STRING.getName(), null);
       fail("Should not allow to set task variable without name");
     } catch (ProcessEngineException e) {
       // expected
@@ -1693,14 +1693,14 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
     runtimeService.startProcessInstanceByKey("twoTasksProcess");
 
     try {
-      taskService.setVariableFromSerialized(null, "aVar", "aValue", ProcessEngineVariableType.STRING.getName(), null);
+      taskService.setVariableFromSerialized(null, "aVar", "aValue", VariableType.STRING.getName(), null);
       fail("Should not allow to set variable for null task");
     } catch (ProcessEngineException e) {
       // expected
     }
 
     try {
-      taskService.setVariableLocalFromSerialized(null, "aVar", "aValue", ProcessEngineVariableType.STRING.getName(), null);
+      taskService.setVariableLocalFromSerialized(null, "aVar", "aValue", VariableType.STRING.getName(), null);
       fail("Should not allow to set variable for null task");
     } catch (ProcessEngineException e) {
       // expected
@@ -1712,7 +1712,7 @@ public class TaskServiceTest extends PluggableProcessEngineTestCase {
     Task task = taskService.newTask();
     taskService.saveTask(task);
 
-    taskService.setVariableFromSerialized(task.getId(), "aVar", "aValue", ProcessEngineVariableType.STRING.getName(), null);
+    taskService.setVariableFromSerialized(task.getId(), "aVar", "aValue", VariableType.STRING.getName(), null);
 
     String value = (String) taskService.getVariable(task.getId(), "aVar");
     assertEquals("aValue", value);

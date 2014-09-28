@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.engine.ProcessEngineException;
-import org.camunda.bpm.engine.delegate.SerializedVariableValue;
+import org.camunda.bpm.engine.delegate.SerializedObjectVariableValue;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.test.PluggableProcessEngineTestCase;
 import org.camunda.bpm.engine.runtime.ActivityInstance;
@@ -67,12 +67,12 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
       assertNotNull(var.getId());
       if (var.getName().equals("intVar")) {
         assertEquals("intVar", var.getName());
-        assertEquals(123, var.getValue());
+        assertEquals(123, var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
 
     }
@@ -122,8 +122,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("stringVar", var.getName());
-    assertEquals("test", var.getValue());
-    assertEquals("string", var.getTypeName());
+    assertEquals("test", var.getTypedValue());
+    assertEquals("string", var.getSerializerName());
   }
 
   @Test
@@ -146,8 +146,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("stringVar", var.getName());
-    assertEquals("test", var.getValue());
-    assertEquals("string", var.getTypeName());
+    assertEquals("test", var.getTypedValue());
+    assertEquals("string", var.getSerializerName());
   }
 
   @Test
@@ -188,8 +188,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("stringVar", var.getName());
-    assertEquals("test", var.getValue());
-    assertEquals("string", var.getTypeName());
+    assertEquals("test", var.getTypedValue());
+    assertEquals("string", var.getSerializerName());
   }
 
   @Test
@@ -216,8 +216,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("stringVar", var.getName());
-    assertEquals("test", var.getValue());
-    assertEquals("string", var.getTypeName());
+    assertEquals("test", var.getTypedValue());
+    assertEquals("string", var.getSerializerName());
   }
 
   @Test
@@ -248,13 +248,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
-      assertEquals("string", var.getTypeName());
-      if (var.getValue().equals("b")) {
-        assertEquals("b", var.getValue());
-      } else if (var.getValue().equals("c")) {
-        assertEquals("c", var.getValue());
+      assertEquals("string", var.getSerializerName());
+      if (var.getTypedValue().equals("b")) {
+        assertEquals("b", var.getTypedValue());
+      } else if (var.getTypedValue().equals("c")) {
+        assertEquals("c", var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -287,15 +287,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
-      assertEquals("string", var.getTypeName());
-      if (var.getValue().equals("a")) {
-        assertEquals("a", var.getValue());
-      } else if (var.getValue().equals("b")) {
-        assertEquals("b", var.getValue());
-      } else if (var.getValue().equals("c")) {
-        assertEquals("c", var.getValue());
+      assertEquals("string", var.getSerializerName());
+      if (var.getTypedValue().equals("a")) {
+        assertEquals("a", var.getTypedValue());
+      } else if (var.getTypedValue().equals("b")) {
+        assertEquals("b", var.getTypedValue());
+      } else if (var.getTypedValue().equals("c")) {
+        assertEquals("c", var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -328,13 +328,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
-      assertEquals("string", var.getTypeName());
-      if (var.getValue().equals("a")) {
-        assertEquals("a", var.getValue());
-      } else if (var.getValue().equals("b")) {
-        assertEquals("b", var.getValue());
+      assertEquals("string", var.getSerializerName());
+      if (var.getTypedValue().equals("a")) {
+        assertEquals("a", var.getTypedValue());
+      } else if (var.getTypedValue().equals("b")) {
+        assertEquals("b", var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -367,15 +367,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
-      assertEquals("string", var.getTypeName());
-      if (var.getValue().equals("a")) {
-        assertEquals("a", var.getValue());
-      } else if (var.getValue().equals("b")) {
-        assertEquals("b", var.getValue());
-      } else if (var.getValue().equals("c")) {
-        assertEquals("c", var.getValue());
+      assertEquals("string", var.getSerializerName());
+      if (var.getTypedValue().equals("a")) {
+        assertEquals("a", var.getTypedValue());
+      } else if (var.getTypedValue().equals("b")) {
+        assertEquals("b", var.getTypedValue());
+      } else if (var.getTypedValue().equals("c")) {
+        assertEquals("c", var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -408,15 +408,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
-      assertEquals("string", var.getTypeName());
-      if (var.getValue().equals("test123")) {
-        assertEquals("test123", var.getValue());
-      } else if (var.getValue().equals("test456")) {
-        assertEquals("test456", var.getValue());
-      } else if (var.getValue().equals("test789")) {
-        assertEquals("test789", var.getValue());
+      assertEquals("string", var.getSerializerName());
+      if (var.getTypedValue().equals("test123")) {
+        assertEquals("test123", var.getTypedValue());
+      } else if (var.getTypedValue().equals("test456")) {
+        assertEquals("test456", var.getTypedValue());
+      } else if (var.getTypedValue().equals("test789")) {
+        assertEquals("test789", var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -441,8 +441,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("intValue", var.getName());
-    assertEquals(1234, var.getValue());
-    assertEquals("integer", var.getTypeName());
+    assertEquals(1234, var.getTypedValue());
+    assertEquals("integer", var.getSerializerName());
   }
 
   @Test
@@ -469,8 +469,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("intValue", var.getName());
-    assertEquals(1234, var.getValue());
-    assertEquals("integer", var.getTypeName());
+    assertEquals(1234, var.getTypedValue());
+    assertEquals("integer", var.getSerializerName());
   }
 
   @Test
@@ -501,13 +501,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("intValue", var.getName());
-      assertEquals("integer", var.getTypeName());
-      if (var.getValue().equals(5555)) {
-        assertEquals(5555, var.getValue());
-      } else if (var.getValue().equals(9876)) {
-        assertEquals(9876, var.getValue());
+      assertEquals("integer", var.getSerializerName());
+      if (var.getTypedValue().equals(5555)) {
+        assertEquals(5555, var.getTypedValue());
+      } else if (var.getTypedValue().equals(9876)) {
+        assertEquals(9876, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -540,15 +540,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("intValue", var.getName());
-      assertEquals("integer", var.getTypeName());
-      if (var.getValue().equals(1234)) {
-        assertEquals(1234, var.getValue());
-      } else if (var.getValue().equals(5555)) {
-        assertEquals(5555, var.getValue());
-      } else if (var.getValue().equals(9876)) {
-        assertEquals(9876, var.getValue());
+      assertEquals("integer", var.getSerializerName());
+      if (var.getTypedValue().equals(1234)) {
+        assertEquals(1234, var.getTypedValue());
+      } else if (var.getTypedValue().equals(5555)) {
+        assertEquals(5555, var.getTypedValue());
+      } else if (var.getTypedValue().equals(9876)) {
+        assertEquals(9876, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -581,13 +581,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("intValue", var.getName());
-      assertEquals("integer", var.getTypeName());
-      if (var.getValue().equals(5555)) {
-        assertEquals(5555, var.getValue());
-      } else if (var.getValue().equals(1234)) {
-        assertEquals(1234, var.getValue());
+      assertEquals("integer", var.getSerializerName());
+      if (var.getTypedValue().equals(5555)) {
+        assertEquals(5555, var.getTypedValue());
+      } else if (var.getTypedValue().equals(1234)) {
+        assertEquals(1234, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -620,15 +620,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("intValue", var.getName());
-      assertEquals("integer", var.getTypeName());
-      if (var.getValue().equals(1234)) {
-        assertEquals(1234, var.getValue());
-      } else if (var.getValue().equals(5555)) {
-        assertEquals(5555, var.getValue());
-      } else if (var.getValue().equals(9876)) {
-        assertEquals(9876, var.getValue());
+      assertEquals("integer", var.getSerializerName());
+      if (var.getTypedValue().equals(1234)) {
+        assertEquals(1234, var.getTypedValue());
+      } else if (var.getTypedValue().equals(5555)) {
+        assertEquals(5555, var.getTypedValue());
+      } else if (var.getTypedValue().equals(9876)) {
+        assertEquals(9876, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -653,8 +653,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("longValue", var.getName());
-    assertEquals(123456L, var.getValue());
-    assertEquals("long", var.getTypeName());
+    assertEquals(123456L, var.getTypedValue());
+    assertEquals("long", var.getSerializerName());
   }
 
   @Test
@@ -681,8 +681,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("longValue", var.getName());
-    assertEquals(123456L, var.getValue());
-    assertEquals("long", var.getTypeName());
+    assertEquals(123456L, var.getTypedValue());
+    assertEquals("long", var.getSerializerName());
   }
 
   @Test
@@ -713,13 +713,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("longValue", var.getName());
-      assertEquals("long", var.getTypeName());
-      if (var.getValue().equals(555555L)) {
-        assertEquals(555555L, var.getValue());
-      } else if (var.getValue().equals(987654L)) {
-        assertEquals(987654L, var.getValue());
+      assertEquals("long", var.getSerializerName());
+      if (var.getTypedValue().equals(555555L)) {
+        assertEquals(555555L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(987654L)) {
+        assertEquals(987654L, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -752,15 +752,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("longValue", var.getName());
-      assertEquals("long", var.getTypeName());
-      if (var.getValue().equals(123456L)) {
-        assertEquals(123456L, var.getValue());
-      } else if (var.getValue().equals(555555L)) {
-        assertEquals(555555L, var.getValue());
-      } else if (var.getValue().equals(987654L)) {
-        assertEquals(987654L, var.getValue());
+      assertEquals("long", var.getSerializerName());
+      if (var.getTypedValue().equals(123456L)) {
+        assertEquals(123456L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(555555L)) {
+        assertEquals(555555L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(987654L)) {
+        assertEquals(987654L, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -793,13 +793,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("longValue", var.getName());
-      assertEquals("long", var.getTypeName());
-      if (var.getValue().equals(123456L)) {
-        assertEquals(123456L, var.getValue());
-      } else if (var.getValue().equals(555555L)) {
-        assertEquals(555555L, var.getValue());
+      assertEquals("long", var.getSerializerName());
+      if (var.getTypedValue().equals(123456L)) {
+        assertEquals(123456L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(555555L)) {
+        assertEquals(555555L, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -832,15 +832,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("longValue", var.getName());
-      assertEquals("long", var.getTypeName());
-      if (var.getValue().equals(123456L)) {
-        assertEquals(123456L, var.getValue());
-      } else if (var.getValue().equals(555555L)) {
-        assertEquals(555555L, var.getValue());
-      } else if (var.getValue().equals(987654L)) {
-        assertEquals(987654L, var.getValue());
+      assertEquals("long", var.getSerializerName());
+      if (var.getTypedValue().equals(123456L)) {
+        assertEquals(123456L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(555555L)) {
+        assertEquals(555555L, var.getTypedValue());
+      } else if (var.getTypedValue().equals(987654L)) {
+        assertEquals(987654L, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -865,8 +865,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("doubleValue", var.getName());
-    assertEquals(123.456, var.getValue());
-    assertEquals("double", var.getTypeName());
+    assertEquals(123.456, var.getTypedValue());
+    assertEquals("double", var.getSerializerName());
   }
 
   @Test
@@ -893,8 +893,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("doubleValue", var.getName());
-    assertEquals(123.456, var.getValue());
-    assertEquals("double", var.getTypeName());
+    assertEquals(123.456, var.getTypedValue());
+    assertEquals("double", var.getSerializerName());
   }
 
   @Test
@@ -925,13 +925,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("doubleValue", var.getName());
-      assertEquals("double", var.getTypeName());
-      if (var.getValue().equals(654.321)) {
-        assertEquals(654.321, var.getValue());
-      } else if (var.getValue().equals(999.999)) {
-        assertEquals(999.999, var.getValue());
+      assertEquals("double", var.getSerializerName());
+      if (var.getTypedValue().equals(654.321)) {
+        assertEquals(654.321, var.getTypedValue());
+      } else if (var.getTypedValue().equals(999.999)) {
+        assertEquals(999.999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -964,15 +964,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("doubleValue", var.getName());
-      assertEquals("double", var.getTypeName());
-      if (var.getValue().equals(123.456)) {
-        assertEquals(123.456, var.getValue());
-      } else if (var.getValue().equals(654.321)) {
-        assertEquals(654.321, var.getValue());
-      } else if (var.getValue().equals(999.999)) {
-        assertEquals(999.999, var.getValue());
+      assertEquals("double", var.getSerializerName());
+      if (var.getTypedValue().equals(123.456)) {
+        assertEquals(123.456, var.getTypedValue());
+      } else if (var.getTypedValue().equals(654.321)) {
+        assertEquals(654.321, var.getTypedValue());
+      } else if (var.getTypedValue().equals(999.999)) {
+        assertEquals(999.999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1005,13 +1005,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("doubleValue", var.getName());
-      assertEquals("double", var.getTypeName());
-      if (var.getValue().equals(123.456)) {
-        assertEquals(123.456, var.getValue());
-      } else if (var.getValue().equals(654.321)) {
-        assertEquals(654.321, var.getValue());
+      assertEquals("double", var.getSerializerName());
+      if (var.getTypedValue().equals(123.456)) {
+        assertEquals(123.456, var.getTypedValue());
+      } else if (var.getTypedValue().equals(654.321)) {
+        assertEquals(654.321, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1044,15 +1044,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("doubleValue", var.getName());
-      assertEquals("double", var.getTypeName());
-      if (var.getValue().equals(123.456)) {
-        assertEquals(123.456, var.getValue());
-      } else if (var.getValue().equals(654.321)) {
-        assertEquals(654.321, var.getValue());
-      } else if (var.getValue().equals(999.999)) {
-        assertEquals(999.999, var.getValue());
+      assertEquals("double", var.getSerializerName());
+      if (var.getTypedValue().equals(123.456)) {
+        assertEquals(123.456, var.getTypedValue());
+      } else if (var.getTypedValue().equals(654.321)) {
+        assertEquals(654.321, var.getTypedValue());
+      } else if (var.getTypedValue().equals(999.999)) {
+        assertEquals(999.999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1077,8 +1077,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("shortValue", var.getName());
-    assertEquals((short) 123, var.getValue());
-    assertEquals("short", var.getTypeName());
+    assertEquals((short) 123, var.getTypedValue());
+    assertEquals("short", var.getSerializerName());
   }
 
   @Test
@@ -1105,8 +1105,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("shortValue", var.getName());
-    assertEquals((short) 123, var.getValue());
-    assertEquals("short", var.getTypeName());
+    assertEquals((short) 123, var.getTypedValue());
+    assertEquals("short", var.getSerializerName());
   }
 
   @Test
@@ -1137,13 +1137,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("shortValue", var.getName());
-      assertEquals("short", var.getTypeName());
-      if (var.getValue().equals((short) 555)) {
-        assertEquals((short) 555, var.getValue());
-      } else if (var.getValue().equals((short) 999)) {
-        assertEquals((short) 999, var.getValue());
+      assertEquals("short", var.getSerializerName());
+      if (var.getTypedValue().equals((short) 555)) {
+        assertEquals((short) 555, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 999)) {
+        assertEquals((short) 999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1176,15 +1176,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("shortValue", var.getName());
-      assertEquals("short", var.getTypeName());
-      if (var.getValue().equals((short) 123)) {
-        assertEquals((short) 123, var.getValue());
-      } else if (var.getValue().equals((short) 555)) {
-        assertEquals((short) 555, var.getValue());
-      } else if (var.getValue().equals((short) 999)) {
-        assertEquals((short) 999, var.getValue());
+      assertEquals("short", var.getSerializerName());
+      if (var.getTypedValue().equals((short) 123)) {
+        assertEquals((short) 123, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 555)) {
+        assertEquals((short) 555, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 999)) {
+        assertEquals((short) 999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1217,13 +1217,13 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("shortValue", var.getName());
-      assertEquals("short", var.getTypeName());
-      if (var.getValue().equals((short) 123)) {
-        assertEquals((short) 123, var.getValue());
-      } else if (var.getValue().equals((short) 555)) {
-        assertEquals((short) 555, var.getValue());
+      assertEquals("short", var.getSerializerName());
+      if (var.getTypedValue().equals((short) 123)) {
+        assertEquals((short) 123, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 555)) {
+        assertEquals((short) 555, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1256,15 +1256,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("shortValue", var.getName());
-      assertEquals("short", var.getTypeName());
-      if (var.getValue().equals((short) 123)) {
-        assertEquals((short) 123, var.getValue());
-      } else if (var.getValue().equals((short) 555)) {
-        assertEquals((short) 555, var.getValue());
-      } else if (var.getValue().equals((short) 999)) {
-        assertEquals((short) 999, var.getValue());
+      assertEquals("short", var.getSerializerName());
+      if (var.getTypedValue().equals((short) 123)) {
+        assertEquals((short) 123, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 555)) {
+        assertEquals((short) 555, var.getTypedValue());
+      } else if (var.getTypedValue().equals((short) 999)) {
+        assertEquals((short) 999, var.getTypedValue());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
     }
   }
@@ -1312,8 +1312,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("date", var.getName());
-    assertEquals(now, var.getValue());
-    assertEquals("date", var.getTypeName());
+    assertEquals(now, var.getTypedValue());
+    assertEquals("date", var.getSerializerName());
   }
 
   @Test
@@ -1354,8 +1354,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("nullValue", var.getName());
-    assertEquals(null, var.getValue());
-    assertEquals("null", var.getTypeName());
+    assertEquals(null, var.getTypedValue());
+    assertEquals("null", var.getSerializerName());
   }
 
   @Test
@@ -1386,14 +1386,14 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance var : result) {
       assertEquals("value", var.getName());
-      if (var.getValue().equals((short) 999)) {
-        assertEquals((short) 999, var.getValue());
-        assertEquals("short", var.getTypeName());
-      } else if (var.getValue().equals("abc")) {
-        assertEquals("abc", var.getValue());
-        assertEquals("string", var.getTypeName());
+      if (var.getTypedValue().equals((short) 999)) {
+        assertEquals((short) 999, var.getTypedValue());
+        assertEquals("short", var.getSerializerName());
+      } else if (var.getTypedValue().equals("abc")) {
+        assertEquals("abc", var.getTypedValue());
+        assertEquals("string", var.getSerializerName());
       } else {
-        fail("A non expected value occured: " + var.getValue());
+        fail("A non expected value occured: " + var.getTypedValue());
       }
 
     }
@@ -1419,15 +1419,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(2, query.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("myVar")) {
         assertEquals("myVar", var.getName());
-        assertEquals("test123", var.getValue());
+        assertEquals("test123", var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1453,15 +1453,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(2, query.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("myVar")) {
         assertEquals("myVar", var.getName());
-        assertEquals("test123", var.getValue());
+        assertEquals("test123", var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1505,15 +1505,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(2, query.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("myVar")) {
         assertEquals("myVar", var.getName());
-        assertEquals("test123", var.getValue());
+        assertEquals("test123", var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1542,15 +1542,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(3, query.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("myVar")) {
         assertEquals("myVar", var.getName());
-        assertEquals("test123", var.getValue());
+        assertEquals("test123", var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1598,8 +1598,8 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     VariableInstance var = result.get(0);
     assertEquals("taskVariable", var.getName());
-    assertEquals("aCustomValue", var.getValue());
-    assertEquals("string", var.getTypeName());
+    assertEquals("aCustomValue", var.getTypedValue());
+    assertEquals("string", var.getSerializerName());
   }
 
   @Test
@@ -1630,15 +1630,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(2, query.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("taskVariable")) {
         assertEquals("taskVariable", var.getName());
-        assertEquals("aCustomValue", var.getValue());
+        assertEquals("aCustomValue", var.getTypedValue());
       } else if (var.getName().equals("anotherTaskVariable")) {
         assertEquals("anotherTaskVariable", var.getName());
-        assertEquals("aCustomValue", var.getValue());
+        assertEquals("aCustomValue", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1686,16 +1686,16 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertNotNull(taskVar);
 
     assertEquals(1, taskVariablesQuery.count());
-    assertEquals("string", taskVar.getTypeName());
+    assertEquals("string", taskVar.getSerializerName());
     assertEquals("taskVariable", taskVar.getName());
-    assertEquals("aCustomValue", taskVar.getValue());
+    assertEquals("aCustomValue", taskVar.getTypedValue());
 
     VariableInstance processVar = processVariablesQuery.singleResult();
 
     assertEquals(1, processVariablesQuery.count());
-    assertEquals("string", processVar.getTypeName());
+    assertEquals("string", processVar.getSerializerName());
     assertEquals("stringVar", processVar.getName());
-    assertEquals("test", processVar.getValue());
+    assertEquals("test", processVar.getTypedValue());
   }
 
   @Test
@@ -1734,15 +1734,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(4, processVariablesQuery.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("myVar")) {
         assertEquals("myVar", var.getName());
-        assertEquals("test123", var.getValue());
+        assertEquals("test123", var.getTypedValue());
       } else if (var.getName().equals("stringVar")) {
         assertEquals("stringVar", var.getName());
-        assertEquals("test", var.getValue());
+        assertEquals("test", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
 
@@ -1754,15 +1754,15 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertEquals(2, taskVariablesQuery.count());
 
     for (VariableInstance var : result) {
-      assertEquals("string", var.getTypeName());
+      assertEquals("string", var.getSerializerName());
       if (var.getName().equals("taskVariable")) {
         assertEquals("taskVariable", var.getName());
-        assertEquals("aCustomValue", var.getValue());
+        assertEquals("aCustomValue", var.getTypedValue());
       } else if (var.getName().equals("anotherTaskVariable")) {
         assertEquals("anotherTaskVariable", var.getName());
-        assertEquals("aCustomValue", var.getValue());
+        assertEquals("aCustomValue", var.getTypedValue());
       } else {
-        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getValue());
+        fail("An unexpected variable '" + var.getName() + "' was found with value " + var.getTypedValue());
       }
     }
   }
@@ -1812,9 +1812,9 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance second = result.get(1);
 
     assertEquals("stringVar", first.getName());
-    assertEquals("string", first.getTypeName());
+    assertEquals("string", first.getSerializerName());
     assertEquals("myVar", second.getName());
-    assertEquals("string", second.getTypeName());
+    assertEquals("string", second.getSerializerName());
   }
 
   @Test
@@ -1838,9 +1838,9 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance second = result.get(1);
 
     assertEquals("intVar", first.getName()); // integer
-    assertEquals("integer", first.getTypeName());
+    assertEquals("integer", first.getSerializerName());
     assertEquals("myVar", second.getName()); // string
-    assertEquals("string", second.getTypeName());
+    assertEquals("string", second.getSerializerName());
   }
 
   @Test
@@ -1864,9 +1864,9 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance second = result.get(1);
 
     assertEquals("myVar", first.getName()); // string
-    assertEquals("string", first.getTypeName());
+    assertEquals("string", first.getSerializerName());
     assertEquals("intVar", second.getName()); // integer
-    assertEquals("integer", second.getTypeName());
+    assertEquals("integer", second.getSerializerName());
   }
 
   @Test
@@ -1896,14 +1896,14 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     if (comparisonResult < 0) {
       assertEquals("intVar", first.getName());
-      assertEquals("integer", first.getTypeName());
+      assertEquals("integer", first.getSerializerName());
       assertEquals("stringVar", second.getName());
-      assertEquals("string", second.getTypeName());
+      assertEquals("string", second.getSerializerName());
     } else if (comparisonResult > 0) {
       assertEquals("stringVar", first.getName());
-      assertEquals("string", first.getTypeName());
+      assertEquals("string", first.getSerializerName());
       assertEquals("intVar", second.getName());
-      assertEquals("integer", second.getTypeName());
+      assertEquals("integer", second.getSerializerName());
     } else {
       fail("Something went wrong: both activity instances have the same id " + execution1.getActivityInstanceId() + " and " + execution2.getActivityInstanceId());
     }
@@ -1936,14 +1936,14 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     if (comparisonResult < 0) {
       assertEquals("stringVar", first.getName());
-      assertEquals("string", first.getTypeName());
+      assertEquals("string", first.getSerializerName());
       assertEquals("intVar", second.getName());
-      assertEquals("integer", second.getTypeName());
+      assertEquals("integer", second.getSerializerName());
     } else if (comparisonResult > 0) {
       assertEquals("intVar", first.getName());
-      assertEquals("integer", first.getTypeName());
+      assertEquals("integer", first.getSerializerName());
       assertEquals("stringVar", second.getName());
-      assertEquals("string", second.getTypeName());
+      assertEquals("string", second.getSerializerName());
     } else {
       fail("Something went wrong: both activity instances have the same id " + execution1.getActivityInstanceId() + " and " + execution2.getActivityInstanceId());
     }
@@ -1973,9 +1973,9 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance instance = result.get(0);
 
     assertEquals("serializableVar", instance.getName());
-    assertNotNull(instance.getValue());
-    assertEquals(serializable, instance.getValue());
-    assertEquals("Serializable", instance.getTypeName());
+    assertNotNull(instance.getTypedValue());
+    assertEquals(serializable, instance.getTypedValue());
+    assertEquals("Serializable", instance.getSerializerName());
 
   }
 
@@ -2019,43 +2019,43 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     for (VariableInstance instance : variableInstances) {
       if (instance.getName().equals("nrOfInstances")) {
         assertEquals("nrOfInstances", instance.getName());
-        assertEquals("integer", instance.getTypeName());
+        assertEquals("integer", instance.getSerializerName());
       } else if (instance.getName().equals("nrOfCompletedInstances")) {
         assertEquals("nrOfCompletedInstances", instance.getName());
-        assertEquals("integer", instance.getTypeName());
+        assertEquals("integer", instance.getSerializerName());
       } else if (instance.getName().equals("nrOfActiveInstances")) {
         assertEquals("nrOfActiveInstances", instance.getName());
-        assertEquals("integer", instance.getTypeName());
+        assertEquals("integer", instance.getSerializerName());
       } else if (instance.getName().equals("loopCounter")) {
         assertEquals("loopCounter", instance.getName());
-        assertEquals("integer", instance.getTypeName());
+        assertEquals("integer", instance.getSerializerName());
       } else if (instance.getName().equals("nullVar")) {
         assertEquals("nullVar", instance.getName());
-        assertEquals("null", instance.getTypeName());
+        assertEquals("null", instance.getSerializerName());
       } else if (instance.getName().equals("integerVar")) {
         assertEquals("integerVar", instance.getName());
-        assertEquals("integer", instance.getTypeName());
+        assertEquals("integer", instance.getSerializerName());
       } else if (instance.getName().equals("dateVar")) {
         assertEquals("dateVar", instance.getName());
-        assertEquals("date", instance.getTypeName());
+        assertEquals("date", instance.getSerializerName());
       } else if (instance.getName().equals("stringVar")) {
         assertEquals("stringVar", instance.getName());
-        assertEquals("string", instance.getTypeName());
+        assertEquals("string", instance.getSerializerName());
       } else if (instance.getName().equals("shortVar")) {
         assertEquals("shortVar", instance.getName());
-        assertEquals("short", instance.getTypeName());
+        assertEquals("short", instance.getSerializerName());
       } else if (instance.getName().equals("longVar")) {
         assertEquals("longVar", instance.getName());
-        assertEquals("long", instance.getTypeName());
+        assertEquals("long", instance.getSerializerName());
       } else if (instance.getName().equals("serializableVar")) {
         assertEquals("serializableVar", instance.getName());
         try {
-          instance.getValue();
+          instance.getTypedValue();
         } catch(NullPointerException e) {
           // the serialized value has not been initially loaded
         }
       } else {
-        fail("An unexpected variable '" + instance.getName() + "' was found with value " + instance.getValue());
+        fail("An unexpected variable '" + instance.getName() + "' was found with value " + instance.getTypedValue());
       }
     }
   }
@@ -2079,7 +2079,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance processVariable = query1.singleResult();
     assertNotNull(processVariable);
     assertEquals("processVariable", processVariable.getName());
-    assertEquals("aProcessVariable", processVariable.getValue());
+    assertEquals("aProcessVariable", processVariable.getTypedValue());
 
     // when
     ActivityInstance subProcessActivityInstance = tree.getChildActivityInstances()[0];
@@ -2099,7 +2099,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance taskVariable = query3.singleResult();
     assertNotNull(taskVariable);
     assertEquals("taskVariable", taskVariable.getName());
-    assertEquals("taskVariableValue", taskVariable.getValue());
+    assertEquals("taskVariableValue", taskVariable.getTypedValue());
   }
 
   @Test
@@ -2124,7 +2124,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance localVariable = query.singleResult();
     assertNotNull(localVariable);
     assertEquals("aLocalVariable", localVariable.getName());
-    assertEquals("aLocalValue", localVariable.getValue());
+    assertEquals("aLocalValue", localVariable.getTypedValue());
 
     Task task = taskService.createTaskQuery().executionId(execution.getId()).singleResult();
     taskService.complete(task.getId());
@@ -2140,7 +2140,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     localVariable = query.singleResult();
     assertNotNull(localVariable);
     assertEquals("aLocalVariable", localVariable.getName());
-    assertEquals("aLocalValue", localVariable.getValue());
+    assertEquals("aLocalValue", localVariable.getTypedValue());
   }
 
   @Deployment
@@ -2165,14 +2165,14 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     VariableInstance localVariable = query.singleResult();
     assertNotNull(localVariable);
     assertEquals("aLocalVariable", localVariable.getName());
-    assertEquals("aLocalValue", localVariable.getValue());
+    assertEquals("aLocalValue", localVariable.getTypedValue());
 
     // and the global variable has the activity instance Id of the process instance:
     query = runtimeService.createVariableInstanceQuery().activityInstanceIdIn(processInstance.getId());
     VariableInstance globalVariable = query.singleResult();
     assertNotNull(localVariable);
     assertEquals("processVariable", globalVariable.getName());
-    assertEquals("aProcessVariable", globalVariable.getValue());
+    assertEquals("aProcessVariable", globalVariable.getTypedValue());
 
     taskService.complete(task.getId());
 
@@ -2194,14 +2194,14 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     // then value is fetched
     VariableInstance result = query.singleResult();
-    assertNotNull(result.getValue());
+    assertNotNull(result.getTypedValue());
 
     // when binary fetching is disabled
     query = runtimeService.createVariableInstanceQuery().disableBinaryFetching();
 
     // then value is not fetched
     result = query.singleResult();
-    assertNull(result.getValue());
+    assertNull(result.getTypedValue());
 
     // delete task
     taskService.deleteTask(task.getId(), true);
@@ -2231,17 +2231,17 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
       if(variableInstance.getName().equals("customSerializable")) {
         assertNull(variableInstance.getErrorMessage());
 
-        SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
       if(variableInstance.getName().equals("failingSerializable")) {
         // no error message is present
         assertNull(variableInstance.getErrorMessage());
 
-        SerializedVariableValue serializedValue = variableInstance.getSerializedValue();
+        SerializedObjectVariableValue serializedValue = variableInstance.getSerializedValue();
         assertNotNull(serializedValue);
-        assertNotNull(serializedValue.getValue());
+        assertNotNull(serializedValue.getTypedValue());
       }
 
     }
@@ -2272,12 +2272,12 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
 
     for (VariableInstance variableInstance : results) {
       if(variableInstance.getName().equals("customSerializable")) {
-        assertNotNull(variableInstance.getValue());
-        assertTrue(variableInstance.getValue() instanceof CustomSerializable);
+        assertNotNull(variableInstance.getTypedValue());
+        assertTrue(variableInstance.getTypedValue() instanceof CustomSerializable);
       }
       if(variableInstance.getName().equals("failingSerializable")) {
         // no value was fetched
-        assertNull(variableInstance.getValue());
+        assertNull(variableInstance.getTypedValue());
         // error message is present
         assertNotNull(variableInstance.getErrorMessage());
       }
@@ -2305,7 +2305,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertNotNull(result);
 
     assertEquals("aVariableName", result.getName());
-    assertEquals("abc", result.getValue());
+    assertEquals("abc", result.getTypedValue());
     assertEquals(instance.getId(), result.getCaseExecutionId());
     assertEquals(instance.getId(), result.getCaseInstanceId());
 
@@ -2341,10 +2341,10 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     for (VariableInstance variableInstance : result) {
       if (variableInstance.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variableInstance.getName());
-        assertEquals("abc", variableInstance.getValue());
+        assertEquals("abc", variableInstance.getTypedValue());
       } else if (variableInstance.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variableInstance.getName());
-        assertEquals("xyz", variableInstance.getValue());
+        assertEquals("xyz", variableInstance.getTypedValue());
       } else {
         fail("Unexpected variable: " + variableInstance.getName());
       }
@@ -2370,7 +2370,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertNotNull(result);
 
     assertEquals("aVariableName", result.getName());
-    assertEquals("abc", result.getValue());
+    assertEquals("abc", result.getTypedValue());
     assertEquals(instance.getId(), result.getCaseExecutionId());
     assertEquals(instance.getId(), result.getCaseInstanceId());
 
@@ -2406,10 +2406,10 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     for (VariableInstance variableInstance : result) {
       if (variableInstance.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variableInstance.getName());
-        assertEquals("abc", variableInstance.getValue());
+        assertEquals("abc", variableInstance.getTypedValue());
       } else if (variableInstance.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variableInstance.getName());
-        assertEquals("xyz", variableInstance.getValue());
+        assertEquals("xyz", variableInstance.getTypedValue());
       } else {
         fail("Unexpected variable: " + variableInstance.getName());
       }
@@ -2435,7 +2435,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     assertNotNull(result);
 
     assertEquals("aVariableName", result.getName());
-    assertEquals("abc", result.getValue());
+    assertEquals("abc", result.getTypedValue());
     assertEquals(instance.getId(), result.getCaseExecutionId());
     assertEquals(instance.getId(), result.getCaseInstanceId());
 
@@ -2472,10 +2472,10 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTestCase {
     for (VariableInstance variableInstance : result) {
       if (variableInstance.getName().equals("aVariableName")) {
         assertEquals("aVariableName", variableInstance.getName());
-        assertEquals("abc", variableInstance.getValue());
+        assertEquals("abc", variableInstance.getTypedValue());
       } else if (variableInstance.getName().equals("anotherVariableName")) {
         assertEquals("anotherVariableName", variableInstance.getName());
-        assertEquals("xyz", variableInstance.getValue());
+        assertEquals("xyz", variableInstance.getTypedValue());
       } else {
         fail("Unexpected variable: " + variableInstance.getName());
       }

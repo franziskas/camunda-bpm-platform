@@ -22,7 +22,7 @@ import org.camunda.bpm.engine.exception.NotValidException;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
-import org.camunda.bpm.engine.impl.variable.VariableTypes;
+import org.camunda.bpm.engine.impl.variable.serializer.VariableValueSerializers;
 import org.camunda.bpm.engine.query.Query;
 
 
@@ -126,11 +126,11 @@ public abstract class AbstractVariableQueryImpl<T extends Query<?,?>, U> extends
 
   protected void ensureVariablesInitialized() {
     if (!queryVariableValues.isEmpty()) {
-      VariableTypes variableTypes = Context
+      VariableValueSerializers variableValueSerializers = Context
               .getProcessEngineConfiguration()
               .getVariableTypes();
       for(QueryVariableValue queryVariableValue : queryVariableValues) {
-        queryVariableValue.initialize(variableTypes);
+        queryVariableValue.initialize(variableValueSerializers);
       }
     }
   }

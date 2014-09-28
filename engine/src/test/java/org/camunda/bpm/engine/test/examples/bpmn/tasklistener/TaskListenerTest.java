@@ -125,7 +125,7 @@ public class TaskListenerTest extends PluggableProcessEngineTestCase {
     if (processEngineConfiguration.getHistoryLevel() >= HISTORYLEVEL_AUDIT) {
       HistoricVariableInstance variable = historyService.createHistoricVariableInstanceQuery().variableName("delete").singleResult();
       assertNotNull(variable);
-      assertTrue((Boolean) variable.getValue());
+      assertTrue((Boolean) variable.getTypedValue());
     }
   }
 
@@ -155,7 +155,7 @@ public class TaskListenerTest extends PluggableProcessEngineTestCase {
     if (processEngineConfiguration.getHistoryLevel() >= HISTORYLEVEL_AUDIT) {
       HistoricVariableInstance variable = historyService.createHistoricVariableInstanceQuery().variableName("delete").singleResult();
       assertNotNull(variable);
-      assertTrue((Boolean) variable.getValue());
+      assertTrue((Boolean) variable.getTypedValue());
     }
   }
 
