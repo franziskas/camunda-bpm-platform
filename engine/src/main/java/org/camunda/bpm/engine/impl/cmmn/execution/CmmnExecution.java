@@ -274,7 +274,7 @@ public abstract class CmmnExecution extends CoreExecution implements CmmnCaseIns
         for (CmmnSentryDeclaration sentryDeclaration : exitCriteria) {
 
           if (satisfiedSentries.contains(sentryDeclaration.getId())) {
-            if (!currentChild.isNew()) {
+            if (!currentChild.isNew() && !currentChild.isCompleted()) {
               currentChild.exit();
               break;
             }
@@ -333,12 +333,13 @@ public abstract class CmmnExecution extends CoreExecution implements CmmnCaseIns
 
       } else { /* IF_PART.equals(sentryPart.getType) == true */
 
+        ifPart = sentryPart;
+
         // once the ifPart has been satisfied the whole sentry is satisfied
         if (ifPart.isSatisfied()) {
           return true;
         }
 
-        ifPart = sentryPart;
       }
 
     }
